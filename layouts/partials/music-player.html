@@ -1,0 +1,79 @@
+{{ $tracks := hugo.Data.music.tracks | default slice }}
+<aside class="music-player{{ if not $tracks }} is-empty{{ end }}" aria-label="音乐播放器">
+  <audio class="player-audio" preload="metadata"></audio>
+  <div class="player-inner">
+    <div class="player-cover" aria-hidden="true">
+      <span>♫</span>
+      {{ with index $tracks 0 }}{{ with .cover }}<img src="{{ . | relURL }}" alt="">{{ end }}{{ end }}
+    </div>
+
+    <div class="player-track">
+      <span class="player-label">NOW PLAYING</span>
+      <strong class="player-title">{{ with index $tracks 0 }}{{ .title }}{{ else }}音乐清单为空{{ end }}</strong>
+      <span class="player-artist">{{ with index $tracks 0 }}{{ .artist | default "未知音乐人" }}{{ else }}添加本地音乐后即可播放{{ end }}</span>
+    </div>
+
+    <div class="player-controls" aria-label="播放控制">
+      <button class="player-button player-prev" type="button" aria-label="上一首" {{ if not $tracks }}disabled{{ end }}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M18 6l-9 6 9 6z"/></svg>
+      </button>
+      <button class="player-button player-play" type="button" aria-label="播放" {{ if not $tracks }}disabled{{ end }}>
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"/></svg>
+        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
+      </button>
+      <button class="player-button player-next" type="button" aria-label="下一首" {{ if not $tracks }}disabled{{ end }}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 6l9 6-9 6z"/></svg>
+      </button>
+    </div>
+
+    <div class="player-timeline">
+      <span class="player-current">0:00</span>
+      <input class="player-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="播放进度" {{ if not $tracks }}disabled{{ end }}>
+      <span class="player-duration">0:00</span>
+    </div>
+
+    <div class="player-extras">
+      <label class="player-volume-wrap" title="音量">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v6h4l5 4V5L9 9H5zM17 9a4 4 0 0 1 0 6"/></svg>
+        <span class="sr-only">音量</span>
+        <input class="player-volume" type="range" min="0" max="1" value="0.8" step="0.05" aria-label="音量" {{ if not $tracks }}disabled{{ end }}>
+      </label>
+      <button class="player-button player-list-toggle" type="button" aria-label="打开播放列表" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h11M4 12h11M4 17h7M18 14v6M15 17h6"/></svg>
+        {{ if $tracks }}<span>{{ len $tracks }}</span>{{ end }}
+      </button>
+    </div>
+  </div>
+
+  <div class="player-playlist" hidden>
+    <div class="playlist-heading">
+      <div><span class="player-label">LOCAL COLLECTION</span><h2>播放列表</h2></div>
+      <button class="playlist-close" type="button" aria-label="关闭播放列表">×</button>
+    </div>
+    {{ if $tracks }}
+    <ol>
+      {{ range $index, $track := $tracks }}
+      <li>
+        <button type="button" class="playlist-item{{ if eq $index 0 }} is-active{{ end }}"
+          data-index="{{ $index }}"
+          data-src="{{ $track.file | relURL }}"
+          data-title="{{ $track.title }}"
+          data-artist="{{ $track.artist | default "未知音乐人" }}"
+          data-cover="{{ with $track.cover }}{{ . | relURL }}{{ end }}">
+          <span class="playlist-index">{{ printf "%02d" (add $index 1) }}</span>
+          <span class="playlist-copy"><strong>{{ $track.title }}</strong><small>{{ $track.artist | default "未知音乐人" }}</small></span>
+          <span class="playlist-state" aria-hidden="true">播放</span>
+        </button>
+      </li>
+      {{ end }}
+    </ol>
+    {{ else }}
+    <div class="playlist-empty">
+      <span>♫</span>
+      <strong>还没有添加音乐</strong>
+      <p>把音频放进 <code>static/music/</code>，并在 <code>data/music.yaml</code> 中登记。</p>
+    </div>
+    {{ end }}
+    <p class="player-status" role="status" aria-live="polite"></p>
+  </div>
+</aside>

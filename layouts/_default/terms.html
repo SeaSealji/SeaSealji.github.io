@@ -1,15 +1,31 @@
 {{ define "main" }}
-  <header class="page-header">
-    <p class="eyebrow">EXPLORE</p>
-    <h1>{{ .Title }}</h1>
-    <p>按标签发现小窝里的文章。</p>
-  </header>
-  <div class="term-grid">
-    {{ range .Data.Terms.Alphabetical }}
-      <a class="term-card" href="{{ .Page.RelPermalink }}">
-        <span>#{{ .Page.Title }}</span>
-        <strong>{{ .Count }}</strong>
+<header class="page-hero shell"><p class="kicker">EXPLORE</p><h1>{{ .Title }}</h1><p>{{ .Description }}</p></header>
+<section class="shell listing">
+  {{ if eq .Data.Plural "categories" }}
+  <div class="category-grid">
+    {{ $items := slice
+      (dict "name" "技术" "num" "01" "desc" "代码、工具与工程实践" "class" "tech")
+      (dict "name" "美剧电影推荐" "num" "02" "desc" "银幕内外，值得回味的故事" "class" "film")
+      (dict "name" "生活" "num" "03" "desc" "日常、旅行和细小感受" "class" "life")
+      (dict "name" "项目" "num" "04" "desc" "创造过程与阶段复盘" "class" "project")
+      (dict "name" "随笔" "num" "05" "desc" "观察、思考和未完待续" "class" "essay")
+    }}
+    {{ range $items }}
+      <a class="category-card {{ .class }}" href="{{ (printf "/categories/%s/" .name) | relURL }}">
+        <span class="category-number">{{ .num }}</span>
+        <div><h2>{{ .name }}</h2><p>{{ .desc }}</p></div>
+        <span class="category-arrow" aria-hidden="true">↗</span>
       </a>
     {{ end }}
   </div>
+  {{ else }}
+  <div class="term-grid">
+    {{ range .Data.Terms.Alphabetical }}
+    <a class="term-card" href="{{ .Page.RelPermalink }}"><span>{{ .Page.Title }}</span><strong>{{ .Count }}</strong></a>
+    {{ else }}
+    <div class="empty-state"><span>✦</span><h2>分类入口已经准备好</h2><p>发布文章并设置 categories 后，分类统计会显示在这里。</p></div>
+    {{ end }}
+  </div>
+  {{ end }}
+</section>
 {{ end }}

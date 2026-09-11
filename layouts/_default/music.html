@@ -1,0 +1,21 @@
+{{ define "main" }}
+<header class="page-hero music-hero shell">
+  <div>
+    <p class="kicker">LISTENING ROOM</p>
+    <h1>我的音乐角落</h1>
+    <p>{{ .Description }}</p>
+  </div>
+  <div class="music-hero-mark" aria-hidden="true"><span>PLAY</span><strong>♪</strong></div>
+</header>
+<section class="music-page shell">
+  <div class="music-page-heading">
+    <div><p class="kicker">LOCAL COLLECTION</p><h2>正在播放</h2></div>
+    <p>音乐保存在博客本地目录，通过网页直接播放。点击列表按钮查看全部收藏。</p>
+  </div>
+  {{ partial "music-player.html" . }}
+  <div class="music-note">
+    <span aria-hidden="true">i</span>
+    <p>这里只收录我有权使用的音频。网页不会自动播放，第一次播放需要由你点击开始。</p>
+  </div>
+</section>
+{{ end }}

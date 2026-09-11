@@ -1,22 +1,16 @@
 {{ define "main" }}
-  <article class="article">
-    <header class="article-header">
-      <a class="back-link" href="{{ `posts/` | relURL }}">← 返回文章列表</a>
-      <p class="eyebrow">{{ with .Params.categories }}{{ index . 0 }}{{ else }}ARTICLE{{ end }}</p>
-      <h1>{{ .Title }}</h1>
-      <div class="post-meta">
-        <time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date.Format "2006 年 01 月 02 日" }}</time>
-        <span class="dot">·</span>
-        <span>{{ .ReadingTime }} 分钟阅读</span>
-      </div>
-    </header>
-    <div class="article-content">
-      {{ .Content }}
+<article class="article shell-narrow">
+  <header class="article-header">
+    <div class="article-meta">
+      {{ with index .Params.categories 0 }}<a class="eyebrow" href="{{ (printf "/categories/%s/" .) | relURL }}">{{ . }}</a>{{ end }}
+      {{ if eq .Section "posts" }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006 年 01 月 02 日" }}</time><span>·</span><span>{{ .ReadingTime }} 分钟阅读</span>{{ end }}
     </div>
-    {{ with .Params.tags }}
-      <footer class="article-footer">
-        {{ range . }}<a class="tag" href="{{ `tags/` | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
-      </footer>
-    {{ end }}
-  </article>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="article-deck">{{ . }}</p>{{ end }}
+  </header>
+  <div class="prose">{{ .Content }}</div>
+  {{ with .Params.tags }}
+  <footer class="article-footer"><span>文章标签</span><div>{{ range . }}<a href="{{ (printf "/tags/%s/" .) | relURL }}">#{{ . }}</a>{{ end }}</div></footer>
+  {{ end }}
+</article>
 {{ end }}

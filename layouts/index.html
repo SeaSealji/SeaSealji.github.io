@@ -1,39 +1,56 @@
 {{ define "main" }}
-  <section class="hero">
-    <p class="eyebrow">WELCOME TO MY LITTLE NEST</p>
-    <h1>非洲鸡的小窝</h1>
-    <p class="hero-copy">记录生活、思考与正在学习的东西。<br>愿每一次写下，都让想法变得更清楚一点。</p>
-    <div class="hero-links">
-      <a class="button" href="{{ `posts/` | relURL }}">浏览文章 <span>↗</span></a>
-      <a class="text-link" href="{{ `about/` | relURL }}">了解我 →</a>
+<section class="hero shell">
+  <div class="hero-copy">
+    <p class="kicker">SEASEALJEL'S FIELD NOTES</p>
+    <h1>在代码、光影与<br><em>日常之间</em>。</h1>
+    <p class="hero-lead">{{ site.Params.subtitle }}</p>
+    <div class="hero-actions">
+      <a class="button primary" href="#recommended">开始阅读 <span>→</span></a>
+      <a class="button quiet" href="{{ "about/" | relURL }}">认识我</a>
     </div>
-  </section>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="orbit orbit-one"></div>
+    <div class="orbit orbit-two"></div>
+    <div class="art-card"><span>CODE</span><strong>{ }</strong></div>
+    <div class="art-card art-card-film"><span>FRAME</span><strong>24</strong></div>
+    <div class="art-note">灵感<br>正在发生</div>
+  </div>
+</section>
 
-  {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-  {{ $paginator := .Paginate ($pages.ByDate.Reverse) }}
-  <section class="posts-section" aria-labelledby="latest-title">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">FROM THE NEST</p>
-        <h2 id="latest-title">最近文章</h2>
-      </div>
-      <a class="text-link" href="{{ `posts/` | relURL }}">全部文章 →</a>
-    </div>
+<section class="category-section shell">
+  <div class="section-heading">
+    <div><p class="kicker">EXPLORE</p><h2>从兴趣出发</h2></div>
+    <p>五个入口，装下我的专业、爱好与生活。</p>
+  </div>
+  <div class="category-grid">
+    {{ $items := slice
+      (dict "name" "技术" "num" "01" "desc" "代码、工具与工程实践" "class" "tech")
+      (dict "name" "美剧电影推荐" "num" "02" "desc" "银幕内外，值得回味的故事" "class" "film")
+      (dict "name" "生活" "num" "03" "desc" "日常、旅行和细小感受" "class" "life")
+      (dict "name" "项目" "num" "04" "desc" "创造过程与阶段复盘" "class" "project")
+      (dict "name" "随笔" "num" "05" "desc" "观察、思考和未完待续" "class" "essay")
+    }}
+    {{ range $items }}
+      <a class="category-card {{ .class }}" href="{{ (printf "/categories/%s/" .name) | relURL }}">
+        <span class="category-number">{{ .num }}</span>
+        <div><h3>{{ .name }}</h3><p>{{ .desc }}</p></div>
+        <span class="category-arrow" aria-hidden="true">↗</span>
+      </a>
+    {{ end }}
+  </div>
+</section>
 
-    <div class="post-list">
-      {{ range $paginator.Pages }}
-        <article class="post-card">
-          <div class="post-meta">
-            <time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date.Format "2006 / 01 / 02" }}</time>
-            {{ with .Params.categories }}<span class="dot">·</span><span>{{ index . 0 }}</span>{{ end }}
-          </div>
-          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-          <p>{{ .Description | default (.Summary | plainify | truncate 120) }}</p>
-          <a class="read-more" href="{{ .RelPermalink }}">阅读全文 <span>↗</span></a>
-        </article>
-      {{ else }}
-        <p class="empty-state">还没有文章，去写下第一篇吧。</p>
-      {{ end }}
-    </div>
-  </section>
+<section class="latest-section shell" id="recommended">
+  <div class="section-heading">
+    <div><p class="kicker">RECOMMENDED</p><h2>推荐阅读</h2></div>
+    <p>这里收录已经写下的文章，从最近一次更新开始。</p>
+  </div>
+  {{ $posts := where site.RegularPages "Section" "posts" }}
+  {{ if $posts }}
+    <div class="posts-grid">{{ range $posts.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}</div>
+  {{ else }}
+    <div class="empty-state"><span>✦</span><h3>故事正在酝酿</h3><p>第一篇文章发布后，它会出现在这里。</p></div>
+  {{ end }}
+</section>
 {{ end }}

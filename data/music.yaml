@@ -1,0 +1,13 @@
+# 将你合法拥有的音频文件放入 static/music/，然后按下面的格式登记。
+# 部署到 GitHub Pages 后，这些文件即可通过网页在线播放。
+#
+# tracks:
+#   - title: "歌曲名称"
+#     artist: "音乐人"
+#     file: "music/song-name.mp3"
+#     cover: "music/song-name.jpg" # 可选
+
+tracks:
+  - title: "西西里"
+    artist: "周杰伦"
+    file: "music/xixili.flac"

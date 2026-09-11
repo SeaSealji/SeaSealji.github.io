@@ -1,27 +1,50 @@
-baseURL = "https://seasealji.github.io/"
-locale = "zh-CN"
-defaultContentLanguage = "zh-cn"
-title = "非洲鸡的小窝"
-hasCJKLanguage = true
+baseURL = 'https://seasealji.github.io/'
+locale = 'zh-CN'
+title = '非洲鸡的小窝'
+defaultContentLanguage = 'zh'
 enableRobotsTXT = true
+summaryLength = 96
 
 [pagination]
-pagerSize = 8
-
-[params]
-author = "SeaSealji"
-description = "记录生活、思考与正在学习的东西。"
-mainSections = ["posts"]
+  pagerSize = 9
 
 [taxonomies]
-tag = "tags"
-category = "categories"
+  category = 'categories'
+  tag = 'tags'
 
-[markup]
-[markup.goldmark]
+[permalinks]
+  posts = '/posts/:slug/'
+
+[params]
+  description = '记录技术实践、美剧电影、生活、项目与个人思考。'
+  author = 'SeaSealji'
+  subtitle = '在代码、光影与日常之间，留下一些认真生活的证据。'
+
 [markup.goldmark.renderer]
-unsafe = true
+  unsafe = true
 
 [caches]
-[caches.images]
-dir = ":cacheDir/images"
+  [caches.images]
+    dir = ':cacheDir/images'
+
+[[menus.main]]
+  name = '首页'
+  pageRef = '/'
+  weight = 10
+
+[[menus.main]]
+  name = '分类'
+  pageRef = '/categories'
+  weight = 20
+
+[[menus.main]]
+  name = '关于'
+  identifier = 'about'
+  pageRef = '/about'
+  weight = 30
+
+[[menus.main]]
+  name = '音乐'
+  pageRef = '/music'
+  parent = 'about'
+  weight = 10

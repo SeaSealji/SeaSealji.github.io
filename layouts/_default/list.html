@@ -1,23 +1,24 @@
 {{ define "main" }}
-  <header class="page-header">
-    <p class="eyebrow">{{ if eq .Section "posts" }}FROM THE NEST{{ else }}COLLECTION{{ end }}</p>
-    <h1>{{ .Title }}</h1>
-    {{ with .Description }}<p>{{ . }}</p>{{ end }}
-  </header>
-
-  <div class="post-list archive-list">
-    {{ range .Pages.ByDate.Reverse }}
-      <article class="post-card">
-        <div class="post-meta">
-          <time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date.Format "2006 / 01 / 02" }}</time>
-          {{ with .Params.categories }}<span class="dot">·</span><span>{{ index . 0 }}</span>{{ end }}
-        </div>
-        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-        <p>{{ .Description | default (.Summary | plainify | truncate 140) }}</p>
-        <a class="read-more" href="{{ .RelPermalink }}">阅读全文 <span>↗</span></a>
-      </article>
-    {{ else }}
-      <p class="empty-state">这里还没有内容。</p>
-    {{ end }}
-  </div>
+<header class="page-hero shell">
+  <p class="kicker">ARCHIVE</p>
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+</header>
+<section class="shell listing">
+  {{ if .Pages }}
+    <div class="posts-grid">{{ range .Paginator.Pages }}{{ partial "post-card.html" . }}{{ end }}</div>
+    {{ template "pagination.html" . }}
+  {{ else }}
+    <div class="empty-state"><span>✦</span><h2>这里还很安静</h2><p>新内容发布后会出现在这里。</p><a class="button quiet" href="{{ site.Home.RelPermalink }}">返回首页</a></div>
+  {{ end }}
+</section>
+{{ end }}
+{{ define "pagination.html" }}
+{{ with .Paginator }}{{ if gt .TotalPages 1 }}
+<nav class="pagination" aria-label="分页">
+  {{ with .Prev }}<a href="{{ .URL }}">← 上一页</a>{{ end }}
+  <span>{{ .PageNumber }} / {{ .TotalPages }}</span>
+  {{ with .Next }}<a href="{{ .URL }}">下一页 →</a>{{ end }}
+</nav>
+{{ end }}{{ end }}
 {{ end }}

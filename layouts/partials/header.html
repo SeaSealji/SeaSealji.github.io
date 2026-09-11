@@ -1,14 +1,27 @@
 <header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="{{ `` | relURL }}">
-      <span class="brand-mark">🐔</span>
-      <span>{{ site.Title }}</span>
+  <div class="shell header-inner">
+    <a class="brand" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}首页">
+      <span class="brand-mark" aria-hidden="true">非</span>
+      <span class="brand-text">{{ site.Title }}</span>
     </a>
-    <nav class="site-nav" aria-label="主导航">
-      <a href="{{ `` | relURL }}">首页</a>
-      <a href="{{ `posts/` | relURL }}">文章</a>
-      <a href="{{ `tags/` | relURL }}">标签</a>
-      <a href="{{ `about/` | relURL }}">关于</a>
+    <nav class="main-nav" aria-label="主导航">
+      {{ range site.Menus.main }}
+      {{ if .HasChildren }}
+        <details class="nav-dropdown{{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} is-current{{ end }}">
+          <summary>{{ .Name }}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary>
+          <div class="nav-submenu">
+            <a href="{{ .URL }}" {{ if $.IsMenuCurrent "main" . }}aria-current="page"{{ end }}>关于我</a>
+            {{ range .Children }}<a href="{{ .URL }}" {{ if $.IsMenuCurrent "main" . }}aria-current="page"{{ end }}>{{ .Name }}</a>{{ end }}
+          </div>
+        </details>
+      {{ else }}
+        <a href="{{ .URL }}" {{ if $.IsMenuCurrent "main" . }}aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{ end }}
+      {{ end }}
     </nav>
+    <button class="theme-toggle" type="button" aria-label="切换深色模式" title="切换深色模式">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 15.4A9 9 0 0 1 8.6 3.4a9 9 0 1 0 12 12Z"/></svg>
+    </button>
   </div>
 </header>
