@@ -1,0 +1,15 @@
+{{ define "main" }}
+  <header class="page-header">
+    <p class="eyebrow">EXPLORE</p>
+    <h1>{{ .Title }}</h1>
+    <p>按标签发现小窝里的文章。</p>
+  </header>
+  <div class="term-grid">
+    {{ range .Data.Terms.Alphabetical }}
+      <a class="term-card" href="{{ .Page.RelPermalink }}">
+        <span>#{{ .Page.Title }}</span>
+        <strong>{{ .Count }}</strong>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}

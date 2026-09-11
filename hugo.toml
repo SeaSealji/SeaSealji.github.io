@@ -1,0 +1,27 @@
+baseURL = "https://seasealji.github.io/"
+locale = "zh-CN"
+defaultContentLanguage = "zh-cn"
+title = "非洲鸡的小窝"
+hasCJKLanguage = true
+enableRobotsTXT = true
+
+[pagination]
+pagerSize = 8
+
+[params]
+author = "SeaSealji"
+description = "记录生活、思考与正在学习的东西。"
+mainSections = ["posts"]
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+
+[markup]
+[markup.goldmark]
+[markup.goldmark.renderer]
+unsafe = true
+
+[caches]
+[caches.images]
+dir = ":cacheDir/images"
