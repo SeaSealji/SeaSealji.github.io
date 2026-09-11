@@ -1,5 +1,7 @@
 ---
 title: "文章分类"
 description: "循着兴趣进入：代码、光影、日常、创造与思考。"
+build:
+  render: never
+  list: never
 ---
-

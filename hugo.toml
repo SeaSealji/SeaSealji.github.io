@@ -34,7 +34,7 @@ summaryLength = 96
 
 [[menus.main]]
   name = '分类'
-  pageRef = '/categories'
+  identifier = 'categories'
   weight = 20
 
 [[menus.main]]
@@ -45,6 +45,49 @@ summaryLength = 96
 
 [[menus.main]]
   name = '音乐'
+  identifier = 'music'
   pageRef = '/music'
   parent = 'about'
   weight = 10
+
+[[menus.main]]
+  name = '关于我'
+  identifier = 'about-me'
+  pageRef = '/about'
+  parent = 'about'
+  weight = 1
+
+[[menus.main]]
+  name = '技术'
+  identifier = 'tech'
+  pageRef = '/categories/技术'
+  parent = 'categories'
+  weight = 1
+
+[[menus.main]]
+  name = '美剧电影推荐'
+  identifier = 'film'
+  pageRef = '/categories/美剧电影推荐'
+  parent = 'categories'
+  weight = 2
+
+[[menus.main]]
+  name = '生活'
+  identifier = 'life'
+  pageRef = '/categories/生活'
+  parent = 'categories'
+  weight = 3
+
+[[menus.main]]
+  name = '项目'
+  identifier = 'project'
+  pageRef = '/categories/项目'
+  parent = 'categories'
+  weight = 4
+
+[[menus.main]]
+  name = '随笔'
+  identifier = 'essay'
+  pageRef = '/categories/随笔'
+  parent = 'categories'
+  weight = 5
