@@ -38,3 +38,15 @@ hugo new posts/my-first-post.md
 ```
 
 编辑文章后，将 front matter 中的 `draft = true` 改成 `draft = false`，然后提交并推送。
+
+## 批量添加音乐
+
+将音频文件一次性传给批量脚本。脚本会复制、提交、推送，并让已推送的音乐文件不保留在本地工作区：
+
+```bash
+./scripts/publish-music.sh --remove-sources \
+  "/path/to/song-a.flac" \
+  "/path/to/song-b.mp3"
+```
+
+推送前请先在 `data/music.yaml` 登记每首歌的 `title`、`artist` 和 `file`。`--remove-sources` 会在推送成功后删除传入的源文件；不使用该参数则只清理仓库工作区中的副本。

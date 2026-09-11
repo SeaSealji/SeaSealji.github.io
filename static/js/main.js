@@ -17,6 +17,21 @@
 })();
 
 (() => {
+  const dropdowns = [...document.querySelectorAll('.nav-dropdown')];
+  if (!dropdowns.length) return;
+  document.addEventListener('click', (event) => {
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.contains(event.target)) dropdown.open = false;
+    });
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    dropdowns.forEach((dropdown) => { dropdown.open = false; });
+    document.querySelector('.nav-dropdown summary')?.focus();
+  });
+})();
+
+(() => {
   const player = document.querySelector('.music-player');
   if (!player) return;
 
