@@ -2,7 +2,7 @@
 title = "论文阅读prompt"
 date = 2026-09-11T14:30:00+08:00
 description = "一个适合从零开始精读计算机视觉论文、整理为长期知识库笔记的可复用 Prompt。"
-draft = true
+draft = false
 categories = ["技术"]
 tags = ["论文阅读", "Prompt", "计算机视觉", "Obsidian", "科研工作流"]
 +++

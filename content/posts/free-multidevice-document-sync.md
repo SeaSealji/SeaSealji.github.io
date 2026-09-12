@@ -2,7 +2,7 @@
 title = "免费的多设备文档同步方案"
 date = 2026-09-12T12:00:00+08:00
 description = "使用 Obsidian 和 GitHub 私人仓库，实现一套免费的多设备 Markdown 文档同步方案。"
-draft = true
+draft = false
 categories = ["技术"]
 tags = ["Obsidian", "Git", "GitHub", "文档同步"]
 +++
