@@ -125,6 +125,30 @@ button { font: inherit; }
 .page-hero { padding-block: 100px 64px; border-bottom: 1px solid var(--line); }
 .page-hero > p:last-child { max-width: 600px; margin: 20px 0 0; color: var(--muted); font-size: 18px; }
 .listing { padding-block: 64px 110px; }
+.listing-film { padding-top: 40px; }
+.recommendation-section { max-width: 980px; margin-inline: auto; }
+.recommendation-section + .recommendation-section { margin-top: 92px; padding-top: 82px; border-top: 1px solid var(--line); }
+.recommendation-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 36px; }
+.recommendation-heading h2 { margin: 0; color: var(--ink); font: 400 clamp(34px, 4vw, 48px)/1.15 var(--serif); letter-spacing: -.04em; }
+.recommendation-heading > p { max-width: 390px; margin: 0; color: var(--muted); font-size: 14px; }
+.recommendation-list { display: grid; gap: 18px; }
+.recommendation-card { position: relative; display: grid; grid-template-columns: 156px minmax(0, 1fr); min-height: 232px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; transition: transform .25s, box-shadow .25s, border-color .25s; }
+.recommendation-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); box-shadow: var(--shadow); }
+.recommendation-poster { position: relative; display: block; min-height: 232px; overflow: hidden; background: var(--ink); }
+.recommendation-poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(140deg, transparent 45%, rgba(0, 0, 0, .32)); pointer-events: none; }
+.recommendation-poster img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+.recommendation-card:hover .recommendation-poster img { transform: scale(1.045); }
+.recommendation-poster > span { position: absolute; z-index: 1; left: 15px; bottom: 13px; color: #fff; font-size: 11px; font-weight: 850; letter-spacing: .14em; text-shadow: 0 1px 7px rgba(0, 0, 0, .45); }
+.recommendation-copy { position: relative; z-index: 1; min-width: 0; padding: 27px 48px 24px 29px; display: flex; flex-direction: column; }
+.recommendation-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; color: var(--muted); font-size: 11px; }
+.recommendation-season { padding: 4px 9px; color: var(--bg); background: var(--ink); border-radius: 999px; font-weight: 800; letter-spacing: .06em; }
+.recommendation-copy h3 { margin: 18px 0 0; color: var(--ink); font: 400 clamp(25px, 3vw, 34px)/1.2 var(--serif); letter-spacing: -.025em; }
+.recommendation-copy h3 a { background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 2px no-repeat; transition: background-size .25s; }
+.recommendation-card:hover h3 a { background-size: 100% 2px; }
+.recommendation-english { margin: 5px 0 0; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .04em; }
+.recommendation-description { max-width: 670px; margin: 15px 0 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
+.recommendation-link { padding-top: 14px; }
+.recommendation-index { position: absolute; z-index: 0; right: 24px; top: 18px; color: color-mix(in srgb, var(--ink) 8%, transparent); font: 700 64px/.9 var(--serif); letter-spacing: -.08em; pointer-events: none; }
 .empty-state { grid-column: 1 / -1; padding: 78px 30px; text-align: center; background: var(--surface); border: 1px dashed var(--line); border-radius: 18px; }
 .empty-state > span { color: var(--accent); font-size: 28px; }
 .empty-state h2, .empty-state h3 { margin: 10px 0 4px; color: var(--ink); font: 400 28px/1.3 var(--serif); }
@@ -191,6 +215,7 @@ button { font: inherit; }
   .hero-art { min-height: 360px; max-width: 520px; width: 100%; margin: 0 auto; }
   .category-card:nth-child(n) { grid-column: span 3; }
   .posts-grid { grid-template-columns: repeat(2, 1fr); }
+  .recommendation-heading { align-items: start; flex-direction: column; gap: 12px; }
   .player-inner { grid-template-columns: auto minmax(120px, 1fr) auto auto; }.player-timeline { grid-column: 1 / -1; padding: 0 4px 3px; }.player-volume-wrap { display: none; }
   .music-hero-mark { flex-basis: 150px; }.music-page-heading { align-items: start; flex-direction: column; gap: 12px; }
 }
@@ -203,6 +228,13 @@ button { font: inherit; }
   .hero-art { min-height: 300px; }.art-card { left: 5px; width: 150px; height: 180px; }.art-card-film { left: auto; right: 5px; top: 110px; width: 165px; height: 190px; }.art-note { left: 50%; top: 125px; width: 105px; height: 105px; transform: translateX(-50%) rotate(-6deg); font-size: 16px; }
   .category-section, .latest-section { padding-block: 70px; }.section-heading { display: block; }.section-heading > p, .section-heading > a { display: block; margin-top: 14px; }
   .category-grid, .posts-grid, .term-grid { grid-template-columns: 1fr; }.category-card:nth-child(n) { grid-column: auto; min-height: 190px; }
+  .listing-film { padding-top: 34px; }
+  .recommendation-card { grid-template-columns: 112px minmax(0, 1fr); min-height: 190px; }
+  .recommendation-poster { min-height: 190px; }
+  .recommendation-copy { padding: 19px 20px 18px; }
+  .recommendation-copy h3 { margin-top: 13px; font-size: 23px; }
+  .recommendation-description { margin-top: 10px; font-size: 13px; line-height: 1.65; }
+  .recommendation-index { display: none; }
   .post-card { min-height: 280px; }.page-hero { padding-block: 70px 48px; }.listing { padding-block: 40px 80px; }
   .article { padding-block: 70px 90px; }.article-header h1 { font-size: 43px; }.article-deck { font-size: 18px; }.prose { font-size: 17px; }
   .footer-inner { padding-block: 45px; align-items: flex-start; flex-direction: column; }.footer-meta { gap: 14px; }

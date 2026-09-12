@@ -4,11 +4,39 @@
   <h1>{{ .Title }}</h1>
   {{ with .Description }}<p>{{ . }}</p>{{ end }}
 </header>
-<section class="shell listing">
+<section class="shell listing{{ if eq .Title "美剧电影推荐" }} listing-film{{ end }}">
+  {{ if eq .Title "美剧电影推荐" }}
+    {{ range site.Data.film_recommendations }}
+      <section class="recommendation-section" aria-labelledby="recommendations-{{ .slug }}">
+        <div class="recommendation-heading">
+          <div><p class="kicker">{{ .kicker }}</p><h2 id="recommendations-{{ .slug }}">{{ .title }}</h2></div>
+          <p>{{ .description }}</p>
+        </div>
+        <div class="recommendation-list">
+          {{ range .items }}
+            <article class="recommendation-card">
+              <a class="recommendation-poster" href="{{ .link }}" target="_blank" rel="noopener noreferrer" aria-label="打开《{{ .title }}》详情页">
+                <img src="{{ .poster | relURL }}" alt="{{ .title }}海报" width="216" height="320" loading="lazy" decoding="async">
+                <span>{{ .code }}</span>
+              </a>
+              <div class="recommendation-copy">
+                <div class="recommendation-meta"><span class="recommendation-season">{{ .season }}</span><span>{{ .meta }}</span></div>
+                <h3><a href="{{ .link }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a></h3>
+                <p class="recommendation-english">{{ .english }}</p>
+                <p class="recommendation-description">{{ .description }}</p>
+                <a class="read-more recommendation-link" href="{{ .link }}" target="_blank" rel="noopener noreferrer">查看本季详情 <span>↗</span></a>
+              </div>
+              <span class="recommendation-index" aria-hidden="true">{{ .code }}</span>
+            </article>
+          {{ end }}
+        </div>
+      </section>
+    {{ end }}
+  {{ end }}
   {{ if .Pages }}
     <div class="posts-grid">{{ range .Paginator.Pages }}{{ partial "post-card.html" . }}{{ end }}</div>
     {{ template "pagination.html" . }}
-  {{ else }}
+  {{ else if ne .Title "美剧电影推荐" }}
     <div class="empty-state"><span>✦</span><h2>这里还很安静</h2><p>新内容发布后会出现在这里。</p><a class="button quiet" href="{{ site.Home.RelPermalink }}">返回首页</a></div>
   {{ end }}
 </section>
