@@ -2,32 +2,32 @@
 
 SeaSealji 的个人博客，使用 Hugo 构建，部署到 GitHub Pages。
 
+> Agent 和后续维护者请先阅读 [AGENTS.md](AGENTS.md) 与 [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)。前者记录本地审查后再推送的强制流程和博客写作规范，后者记录项目结构与当前上下文。
+
 ## 本地预览
 
-先安装 Hugo，然后在项目目录执行：
+先安装 Hugo Extended，然后在项目目录执行：
 
 ```bash
-hugo server -D
+hugo server --bind 127.0.0.1 --port 1313 --disableFastRender
 ```
 
 打开 <http://localhost:1313/> 即可预览。
 
+需要同时预览草稿时，加上 `-D` 参数。
+
 ## 发布到 GitHub Pages
 
-1. 在 GitHub 创建公开仓库：`SeaSealji.github.io`
-2. 将本项目推送到该仓库的 `main` 分支：
+仓库和 GitHub Actions 已经配置完成，不需要再次执行 `git init` 或添加远程仓库。博客内容必须先在本地预览并由用户审查；只有用户明确要求发布或推送后，才执行：
 
-   ```bash
-   git init
-   git add .
-   git commit -m "初始化 Hugo 博客"
-   git branch -M main
-   git remote add origin git@github.com:SeaSealji/SeaSealji.github.io.git
-   git push -u origin main
-   ```
+```bash
+git status --short
+git add -- <本次任务涉及的明确文件>
+git commit -m "说明本次改动"
+git push origin main
+```
 
-3. 在仓库中打开 **Settings → Pages**，将发布来源设为 **GitHub Actions**。
-4. 等待 Actions 完成，访问 <https://seasealji.github.io/>。
+不要使用 `git add .`，以免把未审查的文章或其他文件一并提交。推送后等待 GitHub Actions 完成，再访问 <https://seasealji.github.io/>。
 
 以后每次向 `main` 分支推送内容，GitHub Actions 都会自动重新构建并发布。
 
@@ -37,7 +37,7 @@ hugo server -D
 hugo new posts/my-first-post.md
 ```
 
-编辑文章后，将 front matter 中的 `draft = true` 改成 `draft = false`，然后提交并推送。
+新文章默认使用 `draft = false`，先在本地预览。审查通过并收到明确的发布指令后，再提交并推送；未推送前不会影响线上博客。
 
 ## 批量添加音乐
 
