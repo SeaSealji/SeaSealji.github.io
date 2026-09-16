@@ -8,3 +8,5 @@ description: "关于 SeaSealjel，以及这个小窝为什么存在。"
 这里是“非洲鸡的小窝”，也是我在互联网上的一块长期自留地。我会记录技术实践、喜欢的美剧与电影、正在做的项目，也会写下一些生活片段和还没想透的念头。
 
 比起追逐更新频率，我更希望这里的每一篇文字都真实、有用，并且经得起重新阅读。
+
+我也是开源项目 [dailypaper-skills](https://github.com/huangkiki/dailypaper-skills) 的贡献者。这个项目把每日论文筛选、精读和 Obsidian 笔记整理串成了一套 Claude Code skills；截至 2026 年 9 月 16 日，项目在 GitHub 上获得了 1,232 Stars。
