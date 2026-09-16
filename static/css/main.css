@@ -126,6 +126,27 @@ button { font: inherit; }
 .page-hero > p:last-child { max-width: 600px; margin: 20px 0 0; color: var(--muted); font-size: 18px; }
 .listing { padding-block: 64px 110px; }
 .listing-film { padding-top: 40px; }
+.listing-life { padding-top: 44px; }
+.devices-section { margin-bottom: 72px; padding-bottom: 70px; border-bottom: 1px solid var(--line); }
+.devices-heading { margin-bottom: 28px; display: flex; align-items: end; justify-content: space-between; gap: 32px; }
+.devices-heading h2 { margin: 0; color: var(--ink); font: 400 clamp(34px, 4vw, 48px)/1.15 var(--serif); letter-spacing: -.04em; }
+.devices-heading > div:first-child > p:last-child { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+.device-carousel-actions { display: flex; gap: 9px; }
+.device-carousel-button { width: 43px; height: 43px; padding: 0; display: grid; place-items: center; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 50%; cursor: pointer; transition: color .2s, background .2s, border-color .2s, transform .2s; }
+.device-carousel-button:hover:not(:disabled) { color: var(--bg); background: var(--ink); border-color: var(--ink); transform: translateY(-2px); }
+.device-carousel-button:disabled { opacity: .36; cursor: not-allowed; }
+.device-carousel { display: grid; grid-auto-flow: column; grid-auto-columns: 62%; gap: 18px; padding: 2px 2px 17px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-behavior: smooth; scroll-snap-type: inline mandatory; scrollbar-color: var(--line) transparent; scrollbar-width: thin; }
+.device-card { min-width: 0; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; scroll-snap-align: start; scroll-snap-stop: always; transition: transform .25s, box-shadow .25s, border-color .25s; }
+.device-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--sky) 75%, var(--line)); box-shadow: var(--shadow); }
+.device-media { aspect-ratio: 16 / 9; padding: clamp(22px, 4vw, 42px); display: grid; place-items: center; overflow: hidden; background: linear-gradient(145deg, #f8fbfc, #e2eef3); border-bottom: 1px solid var(--line); }
+.device-media img { display: block; width: 100%; height: 100%; object-fit: contain; transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+.device-card:hover .device-media img { transform: scale(1.025); }
+.device-copy { padding: 25px 27px 28px; }
+.device-label { margin: 0; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.device-copy h3 { margin: 10px 0 0; color: var(--ink); font: 400 clamp(27px, 3vw, 36px)/1.15 var(--serif); letter-spacing: -.025em; }
+.device-configuration { margin: 8px 0 0; color: var(--muted); font-size: 14px; font-weight: 700; }
+.device-specs { margin: 20px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+.device-specs li { padding: 7px 11px; color: var(--text); background: color-mix(in srgb, var(--sky) 20%, var(--surface)); border: 1px solid color-mix(in srgb, var(--sky) 48%, var(--line)); border-radius: 999px; font-size: 12px; line-height: 1.2; }
 .recommendation-section { max-width: 980px; margin-inline: auto; }
 .recommendation-section + .recommendation-section { margin-top: 92px; padding-top: 82px; border-top: 1px solid var(--line); }
 .recommendation-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 36px; }
@@ -215,6 +236,7 @@ button { font: inherit; }
   .hero-art { min-height: 360px; max-width: 520px; width: 100%; margin: 0 auto; }
   .category-card:nth-child(n) { grid-column: span 3; }
   .posts-grid { grid-template-columns: repeat(2, 1fr); }
+  .device-carousel { grid-auto-columns: 72%; }
   .recommendation-heading { align-items: start; flex-direction: column; gap: 12px; }
   .player-inner { grid-template-columns: auto minmax(120px, 1fr) auto auto; }.player-timeline { grid-column: 1 / -1; padding: 0 4px 3px; }.player-volume-wrap { display: none; }
   .music-hero-mark { flex-basis: 150px; }.music-page-heading { align-items: start; flex-direction: column; gap: 12px; }
@@ -229,6 +251,15 @@ button { font: inherit; }
   .category-section, .latest-section { padding-block: 70px; }.section-heading { display: block; }.section-heading > p, .section-heading > a { display: block; margin-top: 14px; }
   .category-grid, .posts-grid, .term-grid { grid-template-columns: 1fr; }.category-card:nth-child(n) { grid-column: auto; min-height: 190px; }
   .listing-film { padding-top: 34px; }
+  .listing-life { padding-top: 34px; }
+  .devices-section { margin-bottom: 48px; padding-bottom: 47px; }
+  .devices-heading { align-items: center; gap: 16px; }
+  .devices-heading > div:first-child > p:last-child { max-width: 220px; }
+  .device-carousel-actions { gap: 6px; }
+  .device-carousel-button { width: 38px; height: 38px; }
+  .device-carousel { margin-inline: -2px; grid-auto-columns: 88%; gap: 13px; }
+  .device-media { aspect-ratio: 4 / 3; padding: 22px; }
+  .device-copy { padding: 22px; }
   .recommendation-card { grid-template-columns: 112px minmax(0, 1fr); min-height: 190px; }
   .recommendation-poster { min-height: 190px; }
   .recommendation-copy { padding: 19px 20px 18px; }

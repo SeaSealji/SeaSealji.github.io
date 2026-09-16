@@ -32,6 +32,37 @@
 })();
 
 (() => {
+  const carousels = [...document.querySelectorAll('[data-device-carousel]')];
+  if (!carousels.length) return;
+
+  carousels.forEach((carousel) => {
+    const track = carousel.querySelector('[data-device-track]');
+    const previousButton = carousel.querySelector('[data-device-prev]');
+    const nextButton = carousel.querySelector('[data-device-next]');
+    if (!track || !previousButton || !nextButton) return;
+
+    const updateButtons = () => {
+      const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0);
+      previousButton.disabled = track.scrollLeft <= 2;
+      nextButton.disabled = track.scrollLeft >= maxScroll - 2;
+    };
+
+    const scrollOneCard = (direction) => {
+      const card = track.querySelector('.device-card');
+      if (!card) return;
+      const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 0;
+      track.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior: 'smooth' });
+    };
+
+    previousButton.addEventListener('click', () => scrollOneCard(-1));
+    nextButton.addEventListener('click', () => scrollOneCard(1));
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+  });
+})();
+
+(() => {
   const player = document.querySelector('.music-player');
   if (!player) return;
 

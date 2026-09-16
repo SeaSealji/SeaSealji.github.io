@@ -1,0 +1,38 @@
+- name: "MacBook Air"
+  model: "M5"
+  color: "天蓝色"
+  configuration: "16GB + 512GB"
+  image: "/images/devices/macbook-air-m5-sky-blue.jpg"
+  image_alt: "天蓝色 MacBook Air M5"
+  image_width: 1000
+  image_height: 478
+  specs:
+    - "Apple M5 芯片"
+    - "16GB 统一内存"
+    - "512GB 固态存储"
+
+- name: "vivo X200"
+  model: "天玑 9400"
+  color: "宝石蓝"
+  configuration: "12GB + 256GB"
+  image: "/images/devices/vivo-x200-gem-blue.jpg"
+  image_alt: "宝石蓝 vivo X200"
+  image_width: 640
+  image_height: 640
+  specs:
+    - "天玑 9400"
+    - "12GB 运行内存"
+    - "256GB 机身存储"
+
+- name: "拯救者 R9000P"
+  model: "2021 款"
+  color: "黑色"
+  configuration: "RTX 3060 · 16GB + 512GB"
+  image: "/images/devices/lenovo-legion-r9000p-black.jpg"
+  image_alt: "黑色联想拯救者 R9000P 2021 款"
+  image_width: 800
+  image_height: 800
+  specs:
+    - "AMD Ryzen 7 5800H"
+    - "RTX 3060 6GB"
+    - "16GB 内存 · 512GB SSD"
