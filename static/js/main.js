@@ -155,6 +155,8 @@
       togglePlaylist(false);
     }));
     audio.addEventListener('play', () => setPlaying(true));
+    audio.addEventListener('waiting', () => announce('网络缓冲中…'));
+    audio.addEventListener('playing', () => announce(`正在播放：${items[activeIndex].dataset.title}`));
     audio.addEventListener('pause', () => setPlaying(false));
     audio.addEventListener('ended', () => loadTrack(activeIndex + 1, true));
     audio.addEventListener('loadedmetadata', () => {

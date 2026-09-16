@@ -1,6 +1,6 @@
 {{ $tracks := hugo.Data.music.tracks | default slice }}
 <aside class="music-player{{ if not $tracks }} is-empty{{ end }}" aria-label="音乐播放器">
-  <audio class="player-audio" preload="metadata"></audio>
+  <audio class="player-audio" preload="auto"></audio>
   <div class="player-inner">
     <div class="player-cover" aria-hidden="true">
       <span>♫</span>
@@ -47,16 +47,22 @@
 
   <div class="player-playlist" hidden>
     <div class="playlist-heading">
-      <div><span class="player-label">LOCAL COLLECTION</span><h2>播放列表</h2></div>
+      <div><span class="player-label">REMOTE COLLECTION</span><h2>播放列表</h2></div>
       <button class="playlist-close" type="button" aria-label="关闭播放列表">×</button>
     </div>
     {{ if $tracks }}
     <ol>
       {{ range $index, $track := $tracks }}
+      {{ $trackSource := "" }}
+      {{ with $track.url }}
+        {{ $trackSource = . }}
+      {{ else }}
+        {{ with $track.file }}{{ $trackSource = . | relURL }}{{ end }}
+      {{ end }}
       <li>
         <button type="button" class="playlist-item{{ if eq $index 0 }} is-active{{ end }}"
           data-index="{{ $index }}"
-          data-src="{{ $track.file | relURL }}"
+          data-src="{{ $trackSource }}"
           data-title="{{ $track.title }}"
           data-artist="{{ $track.artist | default "未知音乐人" }}"
           data-cover="{{ with $track.cover }}{{ . | relURL }}{{ end }}">
@@ -71,7 +77,7 @@
     <div class="playlist-empty">
       <span>♫</span>
       <strong>还没有添加音乐</strong>
-      <p>把音频放进 <code>static/music/</code>，并在 <code>data/music.yaml</code> 中登记。</p>
+      <p>把音频上传到音乐服务器，并在 <code>data/music.yaml</code> 中登记 HTTPS 地址。</p>
     </div>
     {{ end }}
     <p class="player-status" role="status" aria-live="polite"></p>

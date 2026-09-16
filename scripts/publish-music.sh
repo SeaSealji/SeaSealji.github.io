@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+remote_host="gain-meal-server"
+remote_dir="/opt/1panel/apps/openresty/openresty/root/music"
+public_base_url="https://119.29.54.234/music"
+
 usage() {
   echo "用法：$0 [--remove-sources] 音频文件..."
-  echo "将一个或多个音频复制到 static/music/，提交并推送，然后让仓库音乐文件不出现在本地工作区。"
-  echo "默认不会删除源文件；如需同时清理源文件，请显式传入 --remove-sources。"
+  echo "通过 SSH 将音频上传到独立服务器。脚本不会修改、提交或推送 Git 仓库。"
+  echo "默认保留源文件；如需在上传成功后删除，请显式传入 --remove-sources。"
 }
 
 remove_sources=false
@@ -21,43 +25,31 @@ if [[ "$#" -eq 0 ]]; then
   exit 2
 fi
 
-repo_root=$(git rev-parse --show-toplevel)
-music_dir="$repo_root/static/music"
-mkdir -p "$music_dir"
-
-declare -a copied_files=()
-declare -a source_files=()
+declare -a uploaded_sources=()
 for source in "$@"; do
   if [[ ! -f "$source" ]]; then
     echo "找不到音频文件：$source" >&2
     exit 1
   fi
+
   filename=$(basename "$source")
-  target="$music_dir/$filename"
-  cp -p "$source" "$target"
-  copied_files+=("$target")
-  source_files+=("$source")
-done
+  if [[ ! "$filename" =~ ^[A-Za-z0-9._-]+$ ]]; then
+    echo "文件名只能包含英文字母、数字、点、下划线和连字符：$filename" >&2
+    exit 1
+  fi
 
-echo "已复制 ${#copied_files[@]} 个音频文件。"
-echo "请确认 data/music.yaml 中已经登记标题、歌手和 file 路径。"
-git add -- static/music data/music.yaml
-git commit -m "添加本地音乐"
-git push origin main
-
-for target in "${copied_files[@]}"; do
-  relative=${target#"$repo_root/"}
-  git update-index --skip-worktree -- "$relative"
-  rm -f -- "$target"
+  temporary_path="/tmp/${filename}.upload"
+  scp -- "$source" "$remote_host:$temporary_path"
+  ssh "$remote_host" "sudo install -d -m 0755 '$remote_dir' && sudo install -m 0644 '$temporary_path' '$remote_dir/$filename' && rm -f '$temporary_path'"
+  uploaded_sources+=("$source")
+  echo "已上传：$public_base_url/$filename"
 done
 
 if [[ "$remove_sources" == true ]]; then
-  for source in "${source_files[@]}"; do
+  for source in "${uploaded_sources[@]}"; do
     rm -f -- "$source"
   done
+  echo "已删除上传成功的本地源文件。"
 fi
 
-echo "推送完成，本地工作区已移除音乐文件。"
-if [[ "$remove_sources" == false ]]; then
-  echo "源文件未删除；如需清理源文件，请自行删除，或下次使用 --remove-sources。"
-fi
+echo "请将上述 HTTPS 地址登记到 data/music.yaml 的 url 字段，然后进行本地预览。"

@@ -41,7 +41,7 @@ hugo new posts/my-first-post.md
 
 ## 批量添加音乐
 
-将音频文件一次性传给批量脚本。脚本会复制、提交、推送，并让已推送的音乐文件不保留在本地工作区：
+将音频文件一次性传给批量脚本。脚本会通过 SSH 上传到独立服务器，不会修改、提交或推送 Git 仓库：
 
 ```bash
 ./scripts/publish-music.sh --remove-sources \
@@ -49,4 +49,6 @@ hugo new posts/my-first-post.md
   "/path/to/song-b.mp3"
 ```
 
-推送前请先在 `data/music.yaml` 登记每首歌的 `title`、`artist` 和 `file`。`--remove-sources` 会在推送成功后删除传入的源文件；不使用该参数则只清理仓库工作区中的副本。
+上传后在 `data/music.yaml` 登记每首歌的 `title`、`artist` 和 `url`。`--remove-sources` 会在上传成功后删除传入的源文件；不使用该参数则保留源文件。
+
+网页播放建议使用 AAC/M4A 等压缩格式，并在文件名中加入版本号（例如 `song-web-v1.m4a`）。服务器会为音频设置长期浏览器缓存，替换内容时应修改版本号。

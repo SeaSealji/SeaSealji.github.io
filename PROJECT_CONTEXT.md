@@ -26,8 +26,8 @@
 | `static/images/recommendations/` | 推荐页本地低清海报 |
 | `data/film_recommendations.yaml` | 美剧电影推荐数据 |
 | `data/music.yaml` | 音乐播放器曲目数据 |
-| `static/music/` | 音乐文件和音乐说明 |
-| `scripts/publish-music.sh` | 批量登记、复制和发布音乐的脚本 |
+| `static/music/` | 音乐资源说明和可选封面，不保存音频 |
+| `scripts/publish-music.sh` | 通过 SSH 向独立服务器批量上传音乐的脚本 |
 | `public/` | Hugo 生成的构建输出，不是主要编辑入口 |
 
 ## 美剧电影推荐页

@@ -1,13 +1,49 @@
-# 将你合法拥有的音频文件放入 static/music/，然后按下面的格式登记。
-# 部署到 GitHub Pages 后，这些文件即可通过网页在线播放。
+# 将你合法拥有的音频上传到独立服务器，然后按下面的格式登记 HTTPS 地址。
+# GitHub Pages 只保存曲目信息，不再保存音频文件。
 #
 # tracks:
 #   - title: "歌曲名称"
 #     artist: "音乐人"
-#     file: "music/song-name.mp3"
+#     url: "https://example.com/music/song-name.mp3"
 #     cover: "music/song-name.jpg" # 可选
 
 tracks:
+  - title: "太阳之子"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-tai-yang-zhi-zi-v1.m4a"
   - title: "西西里"
     artist: "周杰伦"
-    file: "music/xixili.flac"
+    url: "https://119.29.54.234/music/xixili-web-v1.m4a"
+  - title: "那天下雨了"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-na-tian-xia-yu-le-v1.m4a"
+  - title: "湘女多情"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-xiang-nv-duo-qing-v1.m4a"
+  - title: "谁稀罕"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-shui-xi-han-v1.m4a"
+  - title: "七月的极光"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-qi-yue-de-ji-guang-v1.m4a"
+  - title: "爱琴海"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-ai-qin-hai-v1.m4a"
+  - title: "I Do"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-i-do-v1.m4a"
+  - title: "圣徒"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-sheng-tu-v1.m4a"
+  - title: "女儿殿下"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-nv-er-dian-xia-v1.m4a"
+  - title: "淘金小镇"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-tao-jin-xiao-zhen-v1.m4a"
+  - title: "乡间的路"
+    artist: "周杰伦"
+    url: "https://119.29.54.234/music/jay-xiang-jian-de-lu-v1.m4a"
+  - title: "手心的蔷薇"
+    artist: "林俊杰、G.E.M. 邓紫棋"
+    url: "https://119.29.54.234/music/jj-gem-shou-xin-de-qiang-wei-v1.ogg"
