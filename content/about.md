@@ -9,4 +9,9 @@ description: "关于 SeaSealjel，以及这个小窝为什么存在。"
 
 比起追逐更新频率，我更希望这里的每一篇文字都真实、有用，并且经得起重新阅读。
 
+## 教育经历
+
+- **2022—2026**：中国海洋大学，软件工程专业，本科
+- **2026—至今**：中国海洋大学，计算机科学与技术专业，硕士
+
 我也是开源项目 [dailypaper-skills](https://github.com/huangkiki/dailypaper-skills) 的贡献者。这个项目把每日论文筛选、精读和 Obsidian 笔记整理串成了一套 Claude Code skills；截至 2026 年 9 月 16 日，项目在 GitHub 上获得了 1,232 Stars。
