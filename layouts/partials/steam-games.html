@@ -1,0 +1,42 @@
+{{ if or hugo.IsServer hugo.Data.steam }}
+<section class="steam-section" aria-labelledby="steam-heading">
+  <div class="steam-section-head">
+    <div>
+      <p class="steam-kicker">AFTER HOURS · STEAM</p>
+      <h2 id="steam-heading">我的游戏时间</h2>
+    </div>
+    {{ with hugo.Data.steam }}
+      {{ with .profile_url }}<a class="steam-profile-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">Steam 主页 <span aria-hidden="true">↗</span></a>{{ end }}
+    {{ end }}
+  </div>
+  <p class="steam-intro">偶尔也把时间交给游戏。这里展示 Steam 中公开的游玩记录，按累计时长排列。</p>
+  {{ with hugo.Data.steam }}
+    {{ if eq .status "ok" }}
+      <div class="steam-summary">
+        <span><strong>{{ .played_game_count }}</strong> 款有游玩记录的游戏</span>
+        <span>累计 <strong>{{ .total_playtime_label }}</strong></span>
+      </div>
+      <div class="steam-game-grid">
+        {{ range .games }}
+          <a class="steam-game" href="{{ .store_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .name }}，累计游玩 {{ .playtime_label }}，查看 Steam 商店页面">
+            <span class="steam-game-top">
+              <span class="steam-game-icon">
+                {{ with .icon_url }}<img src="{{ . }}" alt="" loading="lazy" decoding="async">{{ else }}<span aria-hidden="true">✦</span>{{ end }}
+              </span>
+              <span class="steam-game-name">{{ .name }}</span>
+              <span class="steam-game-arrow" aria-hidden="true">↗</span>
+            </span>
+            <span class="steam-game-playtime"><strong>{{ .playtime_label }}</strong><small>累计游玩</small></span>
+          </a>
+        {{ end }}
+      </div>
+      {{ if gt .played_game_count (len .games) }}<p class="steam-list-note">这里只展示游玩时间最长的 {{ len .games }} 款游戏。</p>{{ end }}
+      <p class="steam-updated">Steam 公开数据 · <time datetime="{{ .updated_at_iso }}">更新于 {{ .updated_at_display }}（北京时间）</time> · 非实时</p>
+    {{ else }}
+      <div class="steam-empty"><span aria-hidden="true">✦</span><strong>暂时没有可展示的游戏记录</strong><p>请确认 Steam“游戏详情”已公开，且没有隐藏总游玩时间。</p></div>
+    {{ end }}
+  {{ else }}
+    <div class="steam-empty"><span aria-hidden="true">✦</span><strong>Steam 游戏记录尚未接入</strong><p>配置 Steam 个人主页和 Web API Key 后，这里会显示公开的游戏与游玩时长。</p></div>
+  {{ end }}
+</section>
+{{ end }}

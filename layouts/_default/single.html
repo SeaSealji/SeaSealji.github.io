@@ -9,6 +9,7 @@
     {{ with .Description }}<p class="article-deck">{{ . }}</p>{{ end }}
   </header>
   <div class="prose">{{ .Content }}</div>
+  {{ if .Params.showSteam }}{{ partial "steam-games.html" . }}{{ end }}
   {{ with .Params.tags }}
   <footer class="article-footer"><span>文章标签</span><div>{{ range . }}<a href="{{ (printf "/tags/%s/" .) | relURL }}">#{{ . }}</a>{{ end }}</div></footer>
   {{ end }}

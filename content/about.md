@@ -1,6 +1,7 @@
 ---
 title: "关于我"
-description: "关于 SeaSealjel，以及这个小窝为什么存在。"
+description: "关于 SeaSealji，以及这个小窝为什么存在。"
+showSteam: true
 ---
 
 你好，我是 **SeaSealji**。

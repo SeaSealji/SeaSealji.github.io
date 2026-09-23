@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '23 2 * * *'
 
 permissions:
   contents: read
@@ -19,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.166.0
+      STEAM_ID: '76561198405460400'
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -31,6 +34,11 @@ jobs:
       - name: Configure Pages
         id: pages
         uses: actions/configure-pages@v5
+      - name: Fetch Steam playtime
+        continue-on-error: true
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY || secrets.STEAM }}
+        run: python3 scripts/fetch_steam.py
       - name: Build
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact

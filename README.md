@@ -39,6 +39,12 @@ hugo new posts/my-first-post.md
 
 新文章默认使用 `draft = false`，先在本地预览。审查通过并收到明确的发布指令后，再提交并推送；未推送前不会影响线上博客。
 
+## 关于页的 Steam 游戏数据
+
+1. 登录 [Steam Web API 密钥页面](https://steamcommunity.com/dev/apikey) 申请个人密钥。在 Steam 的「编辑个人资料 → 隐私设置」中，将「游戏详情」设为公开，并关闭「始终将我的总游戏时间设为私密」。单独标为私密的游戏不会对外显示。
+2. SteamID64 `76561198405460400` 已配置在部署工作流中。GitHub 仓库的 **Settings → Secrets and variables → Actions** 中已添加名为 `STEAM` 的仓库密钥，工作流同时兼容 `STEAM_API_KEY`。不要把密钥发到聊天中，也不要写进 Hugo 文件或提交到仓库。如果以后更换 Steam 账号，再更新工作流中的 `STEAM_ID`。
+3. 配置完成后，可在 **Actions → Build and deploy Hugo site → Run workflow** 手动刷新。工作流也会每天约北京时间 10:23 自动抓取并重新构建；GitHub Pages 是静态站点，展示的是最近一次成功构建的数据，不是实时状态。定时任务可能稍有延迟。未设置密钥或 Steam 暂时不可用时，游戏区块不会显示，但不会阻断其他页面的发布。
+
 ## 批量添加音乐
 
 将音频文件一次性传给批量脚本。脚本会通过 SSH 上传到独立服务器，不会修改、提交或推送 Git 仓库：
