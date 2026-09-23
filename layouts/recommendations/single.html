@@ -1,0 +1,16 @@
+{{ define "main" }}
+<article class="resource-detail shell">
+  <a class="resource-back" href="{{ .Parent.RelPermalink }}">← 返回应用分享</a>
+  <header class="resource-detail-header">
+    <div>
+      <p class="kicker">GOOD FIND / {{ .Params.kind }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      {{ with .Params.external_url }}<a class="button primary resource-visit" href="{{ . }}" target="_blank" rel="noopener noreferrer">访问网站 <span aria-hidden="true">↗</span></a>{{ end }}
+    </div>
+    {{ with .Params.image }}<img class="resource-detail-image" src="{{ . | relURL }}" alt="{{ $.Params.image_alt }}" width="960" height="600">{{ end }}
+  </header>
+  <div class="resource-detail-body prose">{{ .Content }}</div>
+  {{ with .Params.external_url }}<p class="resource-url">网站地址：<a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }} <span aria-hidden="true">↗</span></a></p>{{ end }}
+</article>
+{{ end }}

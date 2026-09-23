@@ -26,8 +26,9 @@
   });
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
+    const active = dropdowns.find((dropdown) => dropdown.open);
     dropdowns.forEach((dropdown) => { dropdown.open = false; });
-    document.querySelector('.nav-dropdown summary')?.focus();
+    active?.querySelector('summary')?.focus();
   });
 })();
 

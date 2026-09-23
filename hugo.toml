@@ -38,6 +38,25 @@ summaryLength = 96
   weight = 20
 
 [[menus.main]]
+  name = '推荐'
+  identifier = 'recommendations'
+  weight = 25
+
+[[menus.main]]
+  name = '美剧电影推荐'
+  identifier = 'film-recommendation'
+  pageRef = '/categories/美剧电影推荐'
+  parent = 'recommendations'
+  weight = 1
+
+[[menus.main]]
+  name = '应用分享'
+  identifier = 'app-sharing'
+  pageRef = '/recommendations'
+  parent = 'recommendations'
+  weight = 2
+
+[[menus.main]]
   name = '关于'
   identifier = 'about'
   pageRef = '/about'

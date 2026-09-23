@@ -63,6 +63,10 @@
 
 海报已下载到本地并缩小到约 320px 高的 JPEG，单张约几十 KB，以节省仓库存储和页面加载成本。新增剧集时，先下载并压缩海报，再在 YAML 中填写本地 `poster` 路径；跳转地址填写详情页的完整 HTTPS URL。
 
+## 网站与 App 推荐页
+
+顶部“推荐”是横向子菜单，包含“美剧电影推荐”和“应用分享”；后者指向 `/recommendations/`，原“分类”里的电影推荐入口继续保留。应用分享的列表和详情分别由 `layouts/recommendations/list.html`、`layouts/recommendations/single.html` 渲染。每个推荐在 `content/recommendations/` 下建一个 Markdown 文件，front matter 使用 `kind`、`topic`、`image`、`image_alt`、`external_url` 和一两句话的 `description`；正文写详情。卡片先进入本站详情页，详情页再用按钮跳转外站。图片放在 `static/images/recommendations/`，尽量使用本地轻量资源。
+
 ## 本地预览与构建
 
 在项目根目录运行：

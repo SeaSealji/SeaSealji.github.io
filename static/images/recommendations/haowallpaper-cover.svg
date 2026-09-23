@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">哲风壁纸推荐插画</title>
+  <desc id="desc">一幅包含夕阳、山峦、湖面与 4K 标识的壁纸风景</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#1f4057"/>
+      <stop offset=".55" stop-color="#718b96"/>
+      <stop offset="1" stop-color="#f2ad7e"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#b77769"/>
+      <stop offset="1" stop-color="#183f4b"/>
+    </linearGradient>
+    <clipPath id="screen"><rect x="88" y="74" width="784" height="452" rx="21"/></clipPath>
+  </defs>
+  <rect width="960" height="600" fill="#132f3c"/>
+  <circle cx="812" cy="98" r="224" fill="none" stroke="#b7ced0" stroke-opacity=".14"/>
+  <circle cx="812" cy="98" r="157" fill="none" stroke="#b7ced0" stroke-opacity=".12"/>
+  <rect x="65" y="51" width="830" height="498" rx="37" fill="#0d2632" stroke="#9eb9b7" stroke-opacity=".54" stroke-width="2"/>
+  <g clip-path="url(#screen)">
+    <rect x="88" y="74" width="784" height="452" fill="url(#sky)"/>
+    <circle cx="643" cy="246" r="98" fill="#ffd5a3"/>
+    <circle cx="643" cy="246" r="136" fill="none" stroke="#ffdfba" stroke-opacity=".25" stroke-width="2"/>
+    <path d="M88 343l103-101 99 102 128-190 131 166 98-112 113 135 112-51v234H88z" fill="#364d62"/>
+    <path d="M88 409l152-104 106 105 147-157 163 141 105-87 111 79v140H88z" fill="#1e3e51"/>
+    <path d="M88 427c117-32 232-29 332 0 88 26 180 26 259-5 69-28 131-34 193-22v126H88z" fill="url(#water)"/>
+    <path d="M88 448c120-18 220-8 321 17 103 26 210 24 316-12 58-19 107-26 147-21" fill="none" stroke="#f3ba93" stroke-opacity=".56" stroke-width="5"/>
+    <path d="M88 487c132-14 234-2 332 15 106 18 224 16 338-7 44-9 80-12 114-11" fill="none" stroke="#b7d2c8" stroke-opacity=".22" stroke-width="3"/>
+    <path d="M88 520c95-37 170-68 250-81 77-13 153-9 258 23 112 35 195 40 276 28v36H88z" fill="#173642" opacity=".57"/>
+  </g>
+  <rect x="88" y="74" width="784" height="452" rx="21" fill="none" stroke="#e6e1d1" stroke-opacity=".38" stroke-width="2"/>
+  <rect x="128" y="111" width="112" height="44" rx="22" fill="#112f3c" fill-opacity=".8" stroke="#ffffff" stroke-opacity=".35"/>
+  <text x="184" y="139" text-anchor="middle" fill="#f6e7d2" font-family="Arial,sans-serif" font-size="18" font-weight="bold" letter-spacing="3">4K</text>
+  <circle cx="826" cy="128" r="5" fill="#f7d29e"/><circle cx="807" cy="128" r="5" fill="#f7d29e" opacity=".6"/><circle cx="788" cy="128" r="5" fill="#f7d29e" opacity=".35"/>
+  <text x="480" y="580" text-anchor="middle" fill="#dce9e4" font-family="Arial,sans-serif" font-size="16" font-weight="bold" letter-spacing="5">A MOMENT FOR YOUR SCREEN</text>
+</svg>

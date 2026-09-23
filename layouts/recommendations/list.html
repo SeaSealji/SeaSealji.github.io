@@ -1,0 +1,25 @@
+{{ define "main" }}
+<header class="page-hero shell resource-page-hero">
+  <p class="kicker">GOOD FINDS</p>
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+</header>
+<section class="shell resource-list" aria-label="推荐清单">
+  {{ range .RegularPages.ByTitle }}
+    {{ $item := . }}
+    <article class="resource-card">
+      <a class="resource-card-image" href="{{ .RelPermalink }}" aria-label="查看 {{ .Title }} 的详情">
+        {{ with .Params.image }}<img src="{{ . | relURL }}" alt="{{ $item.Params.image_alt }}" width="960" height="600" loading="lazy" decoding="async">{{ end }}
+      </a>
+      <div class="resource-card-copy">
+        <p class="resource-card-meta"><span>{{ .Params.kind }}</span><span class="resource-meta-dot" aria-hidden="true"></span><span>{{ .Params.topic }}</span></p>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p>{{ .Description }}</p>
+        <a class="resource-card-more" href="{{ .RelPermalink }}">查看详情 <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+  {{ else }}
+    <div class="empty-state"><span>✦</span><h2>正在收集好东西</h2><p>新的推荐会出现在这里。</p></div>
+  {{ end }}
+</section>
+{{ end }}
