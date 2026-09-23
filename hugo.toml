@@ -77,6 +77,13 @@ summaryLength = 96
   weight = 1
 
 [[menus.main]]
+  name = '学习日记'
+  identifier = 'learning'
+  pageRef = '/learning'
+  parent = 'about'
+  weight = 5
+
+[[menus.main]]
   name = '技术'
   identifier = 'tech'
   pageRef = '/categories/技术'

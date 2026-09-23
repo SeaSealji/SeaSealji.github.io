@@ -448,3 +448,51 @@ button { font: inherit; }
   .resource-detail-image { border-radius: 16px; }
   .resource-detail-body { margin-top: 42px; padding-top: 25px; }
 }
+
+/* Learning journal: quick notes with optional links and reflections. */
+.nav-submenu-icon.learning-icon { background: var(--lavender); }
+.learning-hero { position: relative; overflow: hidden; }
+.learning-hero::after { content: "↗"; position: absolute; right: 4%; bottom: -45px; color: color-mix(in srgb, var(--accent) 12%, transparent); font: 260px/1 var(--serif); pointer-events: none; }
+.learning-page { min-height: 380px; padding-block: 48px 110px; }
+.learning-page-note { margin: 0 0 32px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.learning-timeline { max-width: 850px; }
+.learning-month-title { margin: 54px 0 0; padding-bottom: 14px; color: var(--ink); border-bottom: 1px solid var(--line); font: 400 clamp(28px, 3.3vw, 36px)/1.2 var(--serif); letter-spacing: -.035em; }
+.learning-month-title:first-child { margin-top: 0; }
+.learning-entry { min-height: 104px; padding: 19px 7px; display: grid; grid-template-columns: 70px minmax(0, 1fr); align-items: center; gap: clamp(17px, 3vw, 30px); border-bottom: 1px solid var(--line); transition: background .2s, padding .2s; }
+.learning-entry:hover { padding-inline: 15px; background: color-mix(in srgb, var(--surface) 72%, transparent); }
+.learning-entry-date { min-height: 56px; padding-right: 17px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--line); color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1; }
+.learning-entry-date strong { font: 400 35px/1 var(--serif); letter-spacing: -.055em; }
+.learning-entry-date span { margin-top: 6px; color: var(--muted); font-size: 11px; font-weight: 700; }
+.learning-entry-main { min-width: 0; }
+.learning-entry-title { margin: 0; color: var(--ink); font: 400 clamp(21px, 2.4vw, 27px)/1.35 var(--serif); letter-spacing: -.02em; overflow-wrap: anywhere; }
+.learning-entry-title a { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 5px; transition: color .2s, text-decoration-color .2s; }
+.learning-entry-title a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.learning-entry-title a span { margin-left: 5px; color: var(--accent); font: 18px var(--sans); }
+.learning-entry-note { margin: 7px 0 0; color: var(--muted); font-size: 13px; line-height: 1.75; overflow-wrap: anywhere; }
+.learning-empty { padding-block: 82px; }
+.learning-empty p { max-width: 500px; margin: 0 auto; font-size: 14px; line-height: 1.8; }
+.learning-note-detail .prose { padding-top: 32px; }
+.learning-note-detail .prose h2:first-child { margin-top: 0; }
+.paper-figure { width: min(1080px, calc(100vw - 40px)); margin: 34px 0 40px 50%; transform: translateX(-50%); }
+.paper-figure-image { display: block; overflow: hidden; padding: clamp(8px, 1.5vw, 18px); background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 16px 42px rgb(29 43 36 / 8%); }
+.prose .paper-figure img { width: 100%; max-width: none; height: auto; display: block; border-radius: 0; }
+.paper-figure figcaption { margin-top: 12px; color: var(--muted); font: 13px/1.7 var(--sans); text-align: center; }
+.paper-figure figcaption span { white-space: nowrap; }
+
+@media (max-width: 620px) {
+  .nav-dropdown.nav-dropdown-about .nav-submenu { position: fixed; left: 50%; top: 66px; right: auto; width: max-content; max-width: calc(100vw - 28px); }
+  .learning-hero::after { right: -16px; bottom: -19px; font-size: 140px; }
+  .learning-page { padding-block: 34px 80px; }
+  .learning-page-note { margin-bottom: 26px; font-size: 13px; }
+  .learning-month-title { margin-top: 43px; }
+  .learning-entry { min-height: 86px; padding-block: 16px; grid-template-columns: 51px minmax(0, 1fr); gap: 13px; }
+  .learning-entry:hover { padding-inline: 7px; }
+  .learning-entry-date { min-height: 52px; padding-right: 11px; }
+  .learning-entry-date strong { font-size: 30px; }
+  .learning-entry-date span { font-size: 10px; }
+  .learning-entry-title { font-size: 21px; }
+  .learning-entry-note { font-size: 12px; }
+  .learning-empty { padding: 66px 22px; }
+  .paper-figure { width: calc(100vw - 28px); margin-block: 26px 30px; }
+  .paper-figure-image { border-radius: 12px; }
+}

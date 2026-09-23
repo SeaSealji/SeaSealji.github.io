@@ -1,17 +1,17 @@
 {{ define "main" }}
-<article class="article shell-narrow">
+<article class="article shell-narrow{{ if .Params.learning_note }} learning-note-detail{{ end }}">
   <header class="article-header">
     <div class="article-meta">
-      {{ with index .Params.categories 0 }}<a class="eyebrow" href="{{ (printf "/categories/%s/" .) | relURL }}">{{ . }}</a>{{ end }}
-      {{ if eq .Section "posts" }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006 年 01 月 02 日" }}</time><span>·</span><span>{{ .ReadingTime }} 分钟阅读</span>{{ end }}
+      {{ if .Params.learning_note }}<a class="eyebrow" href="{{ "learning/" | relURL }}">← 学习日记</a>{{ else }}{{ with index .Params.categories 0 }}<a class="eyebrow" href="{{ (printf "/categories/%s/" .) | relURL }}">{{ . }}</a>{{ end }}{{ end }}
+      {{ if eq .Section "posts" }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006 年 01 月 02 日" }}</time>{{ if not .Params.learning_note }}<span>·</span><span>{{ .ReadingTime }} 分钟阅读</span>{{ end }}{{ end }}
     </div>
     <h1>{{ .Title }}</h1>
     {{ with .Description }}<p class="article-deck">{{ . }}</p>{{ end }}
   </header>
   <div class="prose">{{ .Content }}</div>
   {{ if .Params.showSteam }}{{ partial "steam-games.html" . }}{{ end }}
-  {{ with .Params.tags }}
+  {{ if .Params.learning_note }}<footer class="article-footer"><a href="{{ "learning/" | relURL }}">← 返回学习日记</a></footer>{{ else }}{{ with .Params.tags }}
   <footer class="article-footer"><span>文章标签</span><div>{{ range . }}<a href="{{ (printf "/tags/%s/" .) | relURL }}">#{{ . }}</a>{{ end }}</div></footer>
-  {{ end }}
+  {{ end }}{{ end }}
 </article>
 {{ end }}

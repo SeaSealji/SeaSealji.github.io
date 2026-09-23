@@ -1,0 +1,44 @@
+{{ define "main" }}
+<header class="page-hero shell learning-hero">
+  <p class="kicker">LEARNING JOURNAL</p>
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+</header>
+
+<section class="shell learning-page" aria-label="按日期排列的学习记录">
+  {{ $entries := site.Data.learning.entries }}
+  {{ if $entries }}
+    <p class="learning-page-note">一条标题就够；有链接或几句感受，再顺手添上。最近的记录排在前面。</p>
+    <div class="learning-timeline">
+    {{ $lastMonth := "" }}
+    {{ range sort $entries "date" "desc" }}
+      {{ $entry := . }}
+      {{ $date := time.AsTime $entry.date }}
+      {{ $month := $date.Format "2006年01月" }}
+      {{ if ne $month $lastMonth }}
+        <h2 class="learning-month-title">{{ $month }}</h2>
+      {{ end }}
+      <article class="learning-entry">
+        <time class="learning-entry-date" datetime="{{ $date.Format "2006-01-02" }}"><strong>{{ $date.Format "02" }}</strong><span>{{ $date.Format "01月" }}</span></time>
+        <div class="learning-entry-main">
+          <h3 class="learning-entry-title">
+            {{ with $entry.url }}
+              {{ if $entry.internal }}<a href="{{ . | relURL }}">{{ $entry.title }} <span aria-hidden="true">→</span></a>
+              {{ else }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="在新标签打开资料：{{ $entry.title }}">{{ $entry.title }} <span aria-hidden="true">↗</span></a>{{ end }}
+            {{ else }}{{ $entry.title }}{{ end }}
+          </h3>
+          {{ with $entry.note }}<p class="learning-entry-note">{{ . }}</p>{{ end }}
+        </div>
+      </article>
+      {{ $lastMonth = $month }}
+    {{ end }}
+    </div>
+  {{ else }}
+    <div class="empty-state learning-empty">
+      <span aria-hidden="true">✎</span>
+      <h2>第一条学习记录，还在路上。</h2>
+      <p>不必写成长文章。一个标题、一条链接，或再加一点自己的感受，都可以留在这里。</p>
+    </div>
+  {{ end }}
+</section>
+{{ end }}

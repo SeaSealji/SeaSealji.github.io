@@ -39,6 +39,22 @@ hugo new posts/my-first-post.md
 
 新文章默认使用 `draft = false`，先在本地预览。审查通过并收到明确的发布指令后，再提交并推送；未推送前不会影响线上博客。
 
+## 写学习日记
+
+学习日记位于“关于 → 学习日记”，按月分组、按日期倒序排列。普通条目只需要日期和标题，链接、感受都可选；有外部链接时点击标题直接打开资料。记录保存在 `data/learning.yaml`：
+
+```yaml
+entries:
+  - date: "2026-09-23"
+    title: "今天学习的内容"
+    url: "https://example.com/" # 可省略
+    note: "一句自己的体会。" # 可省略
+```
+
+以上只是格式示例，并未作为真实记录收录。可以一天记多条，也可以隔几天才记一次，不要求打卡。若只给我一个链接，我会先根据页面内容拟一个简短标题供你确认；不杜撰个人感受。先本地预览，收到明确发布指令后再提交、推送。
+
+论文阅读笔记可以另建精简的 `content/posts/reading-*.md` 页面，并在对应条目中把 `url` 指向站内 `/posts/.../`，同时设置 `internal: true`。这类页面使用 Hugo front matter 的 `learning_note: true`、`build.list: never`、`build.render: always`：能从日记进入详情，但不进入首页推荐阅读或技术分类列表；原论文链接保留在详情页末尾。不要把 Obsidian 内链、状态字段或本地图片路径直接复制到博客。
+
 ## 关于页的 Steam 游戏数据
 
 1. 登录 [Steam Web API 密钥页面](https://steamcommunity.com/dev/apikey) 申请个人密钥。在 Steam 的「编辑个人资料 → 隐私设置」中，将「游戏详情」设为公开，并关闭「始终将我的总游戏时间设为私密」。单独标为私密的游戏不会对外显示。

@@ -1,0 +1,6 @@
+<figure class="paper-figure">
+  <a class="paper-figure-image" href="{{ .Get "src" | relURL }}" target="_blank" rel="noopener noreferrer" aria-label="放大查看：{{ .Get "alt" }}">
+    <img src="{{ .Get "src" | relURL }}" alt="{{ .Get "alt" }}" loading="lazy" decoding="async">
+  </a>
+  <figcaption>{{ .Get "caption" }} <span>· 点击图片放大</span></figcaption>
+</figure>

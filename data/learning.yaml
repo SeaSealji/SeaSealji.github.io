@@ -1,0 +1,61 @@
+# 每条记录只需要 date（YYYY-MM-DD）和 title；url、note 可省略。
+# 日期使用引号，链接建议使用完整的 https:// 地址。
+# 以下条目根据本地论文笔记的 read_date、文章日期和 Git 提交日期整理，供审核。
+entries:
+  - date: "2026-09-23"
+    title: "阅读笔记：未配准高光谱图像超分辨率"
+    url: "/posts/reading-unregistered-hsi-super-resolution/"
+    internal: true
+
+  - date: "2026-09-22"
+    title: "阅读笔记：EMR-Diff（高光谱图像超分辨率）"
+    url: "/posts/reading-emr-diff/"
+    internal: true
+  - date: "2026-09-22"
+    title: "阅读笔记：TPTransformer（高光谱图像超分辨率）"
+    url: "/posts/reading-tptransformer/"
+    internal: true
+
+  - date: "2026-09-16"
+    title: "阅读笔记：Restormer（高分辨率图像复原）"
+    url: "/posts/reading-restormer/"
+    internal: true
+  - date: "2026-09-16"
+    title: "阅读笔记：LWTformer（小波与汉字图像修复）"
+    url: "/posts/reading-lwtformer/"
+    internal: true
+  - date: "2026-09-16"
+    title: "在 Obsidian 里接入 Copilot 与 Codex"
+    url: "https://seasealji.github.io/posts/obsidian-copilot-codex/"
+    note: "记录了如何围绕本地笔记提问，以及接入时遇到的配置问题。"
+  - date: "2026-09-16"
+    title: "整理 dailypaper-skills 论文阅读工作流"
+    url: "https://seasealji.github.io/posts/dailypaper-skills-paper-reading-workflow/"
+    note: "把论文发现、筛选、精读和 Obsidian 笔记整理串起来。"
+
+  - date: "2026-09-15"
+    title: "阅读笔记：BDNet（小目标检测）"
+    url: "/posts/reading-bdnet/"
+    internal: true
+  - date: "2026-09-15"
+    title: "补充 AI Agent 学习路线的实践细节"
+
+  - date: "2026-09-13"
+    title: "排查 Codex 连接失败与 HTTP 流式代理"
+    url: "https://seasealji.github.io/posts/codex-http-streaming-proxy/"
+    note: "从日志定位 WebSocket 握手失败，再检查 HTTP 流式响应与本地代理配置。"
+
+  - date: "2026-09-12"
+    title: "整理 AI Agent 学习路线与预备知识"
+    note: "建立从 LLM API、向量检索、RAG 到 Function Calling 的学习路线。"
+
+  - date: "2026-09-11"
+    title: "阅读笔记：InvDet（红外小目标检测）"
+    url: "/posts/reading-invdet/"
+    internal: true
+  - date: "2026-09-11"
+    title: "阅读笔记：光谱重建与语义分割的协同展开"
+    url: "/posts/reading-cooperative-spectral-unfolding/"
+    internal: true
+  - date: "2026-09-11"
+    title: "搭建 Hugo 博客与 GitHub Pages 发布流程"

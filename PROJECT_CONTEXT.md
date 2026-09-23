@@ -67,6 +67,10 @@
 
 顶部“推荐”是横向子菜单，包含“美剧电影推荐”和“应用分享”；后者指向 `/recommendations/`，原“分类”里的电影推荐入口继续保留。应用分享的列表和详情分别由 `layouts/recommendations/list.html`、`layouts/recommendations/single.html` 渲染。每个推荐在 `content/recommendations/` 下建一个 Markdown 文件，front matter 使用 `kind`、`topic`、`image`、`image_alt`、`external_url` 和一两句话的 `description`；正文写详情。卡片先进入本站详情页，详情页再用按钮跳转外站。图片放在 `static/images/recommendations/`，尽量使用本地轻量资源。
 
+## 学习日记
+
+顶部“关于”的横向子菜单包含“学习日记”，地址为 `/learning/`。列表由 `layouts/learning/list.html` 渲染，按月分组并按日期倒序显示。普通条目是短记录：编辑 `data/learning.yaml` 的 `entries`，每条只需 `date`（带引号的 `YYYY-MM-DD`）和 `title`，可选 `url`、`note`；外部链接在新标签打开。论文阅读条目可设置站内 `url` 和 `internal: true`，进入 `content/posts/reading-*.md` 的精简笔记。此类笔记使用 `learning_note: true`、`build.list: never`、`build.render: always`，不出现在首页推荐阅读或分类列表；正文不保留 Obsidian 内链、状态和本地图片路径。没有记录时展示空状态，不编造日记或个人感受。第一版不做日历打卡，待记录积累后再考虑增加日历视图。
+
 ## 本地预览与构建
 
 在项目根目录运行：
