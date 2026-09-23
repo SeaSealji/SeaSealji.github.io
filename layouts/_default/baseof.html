@@ -9,7 +9,7 @@
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
   <link rel="canonical" href="{{ .Permalink }}">
   <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ "css/main.css" | relURL }}?v=4">
+  <link rel="stylesheet" href="{{ "css/main.css" | relURL }}?v=5">
   {{ with .OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">{{ end }}
 </head>
 <body>

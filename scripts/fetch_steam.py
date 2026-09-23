@@ -15,6 +15,8 @@ from urllib.request import Request, urlopen
 API_ROOT = "https://api.steampowered.com"
 OUTPUT = Path(__file__).resolve().parents[1] / "data" / "steam.json"
 GAME_LIMIT = 8
+RECENT_LIMIT = 4
+EXCLUDED_APP_IDS = {431960}  # Wallpaper Engine is software, not a game.
 
 
 def request_steam(interface, method, params, api_key):
@@ -63,52 +65,90 @@ def playtime_label(minutes):
     return f"{minutes / 60:,.1f} 小时"
 
 
-def build_snapshot(steam_id, response):
+def normalize_game(item):
+    try:
+        appid = int(item["appid"])
+        minutes = int(item.get("playtime_forever", 0))
+    except (KeyError, TypeError, ValueError):
+        return None
+    if appid <= 0 or appid in EXCLUDED_APP_IDS or minutes <= 0:
+        return None
+    icon_hash = str(item.get("img_icon_url", ""))
+    icon_url = ""
+    if re.fullmatch(r"[0-9a-fA-F]{40}", icon_hash):
+        icon_url = f"https://media.steampowered.com/steamcommunity/public/images/apps/{appid}/{icon_hash}.jpg"
+    return {
+        "appid": appid,
+        "name": str(item.get("name") or f"Steam App {appid}"),
+        "playtime_minutes": minutes,
+        "playtime_label": playtime_label(minutes),
+        "store_url": f"https://store.steampowered.com/app/{appid}/",
+        "icon_url": icon_url,
+    }
+
+
+def build_snapshot(steam_id, owned_response, recent_response=None):
     now = datetime.now(timezone.utc)
     china_time = now.astimezone(timezone(timedelta(hours=8)))
-    count = response.get("game_count")
-    raw_games = response.get("games", [])
+    count = owned_response.get("game_count")
+    raw_games = owned_response.get("games", [])
     if not isinstance(count, int) or not isinstance(raw_games, list):
         status = "unavailable"
         raw_games = []
     else:
         status = "ok" if count > 0 else "empty"
 
-    games = []
+    all_games = {}
     for item in raw_games:
-        try:
-            appid = int(item["appid"])
-            minutes = int(item.get("playtime_forever", 0))
-        except (KeyError, TypeError, ValueError):
-            continue
-        if appid <= 0 or minutes <= 0:
-            continue
-        icon_hash = str(item.get("img_icon_url", ""))
-        icon_url = ""
-        if re.fullmatch(r"[0-9a-fA-F]{40}", icon_hash):
-            icon_url = f"https://media.steampowered.com/steamcommunity/public/images/apps/{appid}/{icon_hash}.jpg"
-        games.append(
-            {
-                "appid": appid,
-                "name": str(item.get("name") or f"Steam App {appid}"),
-                "playtime_minutes": minutes,
-                "playtime_label": playtime_label(minutes),
-                "store_url": f"https://store.steampowered.com/app/{appid}/",
-                "icon_url": icon_url,
-            }
-        )
+        game = normalize_game(item)
+        if game:
+            all_games[game["appid"]] = game
 
-    games.sort(key=lambda game: (-game["playtime_minutes"], game["appid"]))
-    total_minutes = sum(game["playtime_minutes"] for game in games)
-    if not games:
+    recent_raw = recent_response.get("games", []) if isinstance(recent_response, dict) else None
+    recent_available = isinstance(recent_raw, list)
+    recent_games = []
+    recent_ids = set()
+    if recent_available and status == "ok":
+        for item in recent_raw:
+            try:
+                appid = int(item["appid"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if appid in EXCLUDED_APP_IDS or appid in recent_ids:
+                continue
+            game = all_games.get(appid) or normalize_game(item)
+            if not game:
+                continue
+            all_games.setdefault(appid, game)
+            recent_ids.add(appid)
+            try:
+                recent_minutes = max(0, int(item.get("playtime_2weeks", 0) or 0))
+            except (TypeError, ValueError):
+                recent_minutes = 0
+            recent_game = dict(all_games[appid])
+            recent_game["recent_playtime_minutes"] = recent_minutes
+            recent_game["recent_playtime_label"] = playtime_label(recent_minutes) if recent_minutes else ""
+            recent_games.append(recent_game)
+
+    recent_games.sort(key=lambda game: (-game["recent_playtime_minutes"], -game["playtime_minutes"], game["appid"]))
+    history_games = sorted(
+        (game for appid, game in all_games.items() if appid not in recent_ids),
+        key=lambda game: (-game["playtime_minutes"], game["appid"]),
+    )
+    total_minutes = sum(game["playtime_minutes"] for game in all_games.values())
+    if not all_games:
         status = "empty" if status == "ok" else status
     return {
         "status": status,
         "steam_id": steam_id,
         "profile_url": f"https://steamcommunity.com/profiles/{steam_id}/",
-        "played_game_count": len(games),
+        "played_game_count": len(all_games),
         "total_playtime_label": playtime_label(total_minutes),
-        "games": games[:GAME_LIMIT],
+        "recent_available": recent_available,
+        "recent_game_count": len(recent_games),
+        "recent_games": recent_games[:RECENT_LIMIT],
+        "history_game_count": len(history_games),
+        "history_games": history_games[:GAME_LIMIT],
         "updated_at_iso": now.isoformat(timespec="seconds"),
         "updated_at_display": china_time.strftime("%Y-%m-%d %H:%M"),
     }
@@ -135,7 +175,15 @@ def main():
         response = result.get("response") if isinstance(result, dict) else None
         if not isinstance(response, dict):
             raise ValueError("Steam returned an unexpected response")
-        snapshot = build_snapshot(steam_id, response)
+        recent_response = None
+        try:
+            recent_result = request_steam(
+                "IPlayerService", "GetRecentlyPlayedGames", {"steamid": steam_id, "count": 0}, api_key
+            )
+            recent_response = recent_result.get("response") if isinstance(recent_result, dict) else None
+        except (HTTPError, URLError, ValueError, TypeError, json.JSONDecodeError):
+            print("Recent Steam activity is unavailable; showing historical games only.", file=sys.stderr)
+        snapshot = build_snapshot(steam_id, response, recent_response)
     except HTTPError as error:
         print(f"Steam API returned HTTP {error.code}.", file=sys.stderr)
         return 1
@@ -148,7 +196,10 @@ def main():
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Steam snapshot generated: {snapshot['played_game_count']} played games.")
+    print(
+        f"Steam snapshot generated: {snapshot['played_game_count']} played games, "
+        f"{snapshot['recent_game_count']} recently played."
+    )
     return 0
 
 

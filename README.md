@@ -45,6 +45,8 @@ hugo new posts/my-first-post.md
 2. SteamID64 `76561198405460400` 已配置在部署工作流中。GitHub 仓库的 **Settings → Secrets and variables → Actions** 中已添加名为 `STEAM` 的仓库密钥，工作流同时兼容 `STEAM_API_KEY`。不要把密钥发到聊天中，也不要写进 Hugo 文件或提交到仓库。如果以后更换 Steam 账号，再更新工作流中的 `STEAM_ID`。
 3. 配置完成后，可在 **Actions → Build and deploy Hugo site → Run workflow** 手动刷新。工作流也会每天约北京时间 10:23 自动抓取并重新构建；GitHub Pages 是静态站点，展示的是最近一次成功构建的数据，不是实时状态。定时任务可能稍有延迟。未设置密钥或 Steam 暂时不可用时，游戏区块不会显示，但不会阻断其他页面的发布。
 
+“最近在玩”来自 Steam 最近游玩接口，“历史游玩”是其余有游玩时长的游戏；两组不会重复。Wallpaper Engine（AppID `431960`）不计入列表、数量或累计时长。
+
 ## 批量添加音乐
 
 将音频文件一次性传给批量脚本。脚本会通过 SSH 上传到独立服务器，不会修改、提交或推送 Git 仓库：

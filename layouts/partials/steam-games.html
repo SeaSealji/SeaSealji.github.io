@@ -9,28 +9,41 @@
       {{ with .profile_url }}<a class="steam-profile-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">Steam 主页 <span aria-hidden="true">↗</span></a>{{ end }}
     {{ end }}
   </div>
-  <p class="steam-intro">偶尔也把时间交给游戏。这里展示 Steam 中公开的游玩记录，按累计时长排列。</p>
+  <p class="steam-intro">偶尔也把时间交给游戏。最近的游玩记录和更早的游戏经历，分开放在这里。</p>
   {{ with hugo.Data.steam }}
     {{ if eq .status "ok" }}
       <div class="steam-summary">
         <span><strong>{{ .played_game_count }}</strong> 款有游玩记录的游戏</span>
         <span>累计 <strong>{{ .total_playtime_label }}</strong></span>
       </div>
-      <div class="steam-game-grid">
-        {{ range .games }}
-          <a class="steam-game" href="{{ .store_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .name }}，累计游玩 {{ .playtime_label }}，查看 Steam 商店页面">
-            <span class="steam-game-top">
-              <span class="steam-game-icon">
-                {{ with .icon_url }}<img src="{{ . }}" alt="" loading="lazy" decoding="async">{{ else }}<span aria-hidden="true">✦</span>{{ end }}
-              </span>
-              <span class="steam-game-name">{{ .name }}</span>
-              <span class="steam-game-arrow" aria-hidden="true">↗</span>
-            </span>
-            <span class="steam-game-playtime"><strong>{{ .playtime_label }}</strong><small>累计游玩</small></span>
-          </a>
+      <section class="steam-group" aria-labelledby="steam-recent-heading">
+        <div class="steam-group-head">
+          <div><span>01 / RECENT</span><h3 id="steam-recent-heading">最近在玩</h3></div>
+          <p>来自 Steam 最近游玩记录，并非实时在线状态。</p>
+        </div>
+        {{ if .recent_available }}
+          {{ if .recent_games }}
+            <div class="steam-game-grid">{{ range .recent_games }}{{ partial "steam-game-card.html" . }}{{ end }}</div>
+            {{ if gt .recent_game_count (len .recent_games) }}<p class="steam-list-note">展示近期游玩较多的 {{ len .recent_games }} 款，共 {{ .recent_game_count }} 款。</p>{{ end }}
+          {{ else }}
+            <div class="steam-group-empty">最近没有公开的游玩记录。</div>
+          {{ end }}
+        {{ else }}
+          <div class="steam-group-empty">最近游玩记录暂时不可用，历史数据仍可查看。</div>
         {{ end }}
-      </div>
-      {{ if gt .played_game_count (len .games) }}<p class="steam-list-note">这里只展示游玩时间最长的 {{ len .games }} 款游戏。</p>{{ end }}
+      </section>
+      <section class="steam-group" aria-labelledby="steam-history-heading">
+        <div class="steam-group-head">
+          <div><span>02 / ARCHIVE</span><h3 id="steam-history-heading">{{ if .recent_available }}历史游玩{{ else }}全部游玩记录{{ end }}</h3></div>
+          <p>{{ if .recent_available }}近期未出现在最近游玩记录中的游戏，按累计时长排列。{{ else }}按累计游玩时长排列。{{ end }}</p>
+        </div>
+        {{ if .history_games }}
+          <div class="steam-game-grid">{{ range .history_games }}{{ partial "steam-game-card.html" . }}{{ end }}</div>
+          {{ if gt .history_game_count (len .history_games) }}<p class="steam-list-note">展示累计时长最高的 {{ len .history_games }} 款，共 {{ .history_game_count }} 款。</p>{{ end }}
+        {{ else }}
+          <div class="steam-group-empty">还没有更多历史游玩记录。</div>
+        {{ end }}
+      </section>
       <p class="steam-updated">Steam 公开数据 · <time datetime="{{ .updated_at_iso }}">更新于 {{ .updated_at_display }}（北京时间）</time> · 非实时</p>
     {{ else }}
       <div class="steam-empty"><span aria-hidden="true">✦</span><strong>暂时没有可展示的游戏记录</strong><p>请确认 Steam“游戏详情”已公开，且没有隐藏总游玩时间。</p></div>

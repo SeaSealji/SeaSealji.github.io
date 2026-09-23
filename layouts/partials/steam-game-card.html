@@ -1,0 +1,11 @@
+<a class="steam-game" href="{{ .store_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .name }}，累计游玩 {{ .playtime_label }}{{ with .recent_playtime_label }}，近期游玩 {{ . }}{{ end }}，查看 Steam 商店页面">
+  <span class="steam-game-top">
+    <span class="steam-game-icon">
+      {{ with .icon_url }}<img src="{{ . }}" alt="" loading="lazy" decoding="async">{{ else }}<span aria-hidden="true">✦</span>{{ end }}
+    </span>
+    <span class="steam-game-name">{{ .name }}</span>
+    <span class="steam-game-arrow" aria-hidden="true">↗</span>
+  </span>
+  <span class="steam-game-playtime"><strong>{{ .playtime_label }}</strong><small>累计游玩</small></span>
+  {{ with .recent_playtime_label }}<span class="steam-game-recent">近期游玩 <strong>{{ . }}</strong></span>{{ end }}
+</a>

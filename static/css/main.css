@@ -207,6 +207,12 @@ button { font: inherit; }
 .steam-intro { margin: 16px 0 26px; max-width: 620px; color: var(--muted); font-size: 14px; line-height: 1.75; }
 .steam-summary { margin-bottom: 14px; padding: 15px 19px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); background: color-mix(in srgb, var(--sage) 18%, var(--surface)); border: 1px solid var(--line); border-radius: 13px; font-size: 13px; }
 .steam-summary strong { margin-right: 3px; color: var(--ink); font-size: 18px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.steam-group { margin-top: 29px; }
+.steam-group + .steam-group { margin-top: 43px; }
+.steam-group-head { margin-bottom: 17px; display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.steam-group-head span { color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+.steam-group-head h3 { margin: 5px 0 0; color: var(--ink); font: 400 27px/1.25 var(--serif); letter-spacing: -.03em; }
+.steam-group-head p { max-width: 320px; margin: 0 0 2px; color: var(--muted); font-size: 12px; line-height: 1.6; text-align: right; }
 .steam-game-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .steam-game { min-width: 0; min-height: 148px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 19px; background: var(--surface); border: 1px solid var(--line); border-radius: 15px; transition: transform .22s, border-color .22s, box-shadow .22s; }
 .steam-game:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); box-shadow: var(--shadow); }
@@ -218,8 +224,11 @@ button { font: inherit; }
 .steam-game-playtime { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-top: 13px; border-top: 1px solid var(--line); }
 .steam-game-playtime strong { color: var(--ink); font-size: 21px; font-weight: 750; font-variant-numeric: tabular-nums; line-height: 1.25; }
 .steam-game-playtime small { flex: 0 0 auto; color: var(--muted); font-size: 11px; }
+.steam-game-recent { align-self: flex-start; margin-top: -10px; padding: 4px 9px; color: var(--muted); background: color-mix(in srgb, var(--sky) 22%, var(--surface)); border-radius: 999px; font-size: 11px; line-height: 1.4; }
+.steam-game-recent strong { margin-left: 4px; color: var(--ink); font-weight: 750; }
 .steam-list-note, .steam-updated { margin: 15px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
-.steam-updated { margin-top: 20px; }
+.steam-updated { margin-top: 34px; padding-top: 17px; border-top: 1px solid var(--line); }
+.steam-group-empty { padding: 25px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; font-size: 13px; }
 .steam-empty { padding: 28px 25px; display: grid; gap: 7px; justify-items: start; background: var(--surface); border: 1px dashed var(--line); border-radius: 15px; }
 .steam-empty > span { color: var(--accent); font-size: 25px; line-height: 1; }
 .steam-empty strong { color: var(--ink); font: 400 21px/1.35 var(--serif); }
@@ -297,6 +306,7 @@ button { font: inherit; }
   .post-card { min-height: 280px; }.page-hero { padding-block: 70px 48px; }.listing { padding-block: 40px 80px; }
   .article { padding-block: 70px 90px; }.article-header h1 { font-size: 43px; }.article-deck { font-size: 18px; }.prose { font-size: 17px; }
   .steam-section { margin-top: 58px; padding-top: 35px; }.steam-section-head { align-items: start; flex-direction: column; gap: 10px; }.steam-game-grid { grid-template-columns: 1fr; }.steam-game { min-height: 132px; }
+  .steam-group-head { align-items: start; flex-direction: column; gap: 5px; }.steam-group-head p { max-width: none; text-align: left; }
   .footer-inner { padding-block: 45px; align-items: flex-start; flex-direction: column; }.footer-meta { gap: 14px; }
   .music-hero { align-items: flex-start; }.music-hero-mark { flex-basis: 90px; padding: 15px; }.music-hero-mark strong { font-size: 42px; }.music-page { padding-block: 45px 80px; }.music-player { width: 100%; }.player-inner { padding: 8px; grid-template-columns: auto minmax(0, 1fr) auto auto; gap: 8px; border-radius: 15px; }.player-cover { width: 46px; height: 46px; }.player-track .player-label { display: none; }.player-title { font-size: 14px; }.player-controls { gap: 0; }.player-prev { display: none; }.player-timeline { gap: 5px; }.player-playlist, .music-page .player-playlist { right: auto; width: 100%; padding: 20px; }.player-current, .player-duration { min-width: 30px; }.player-list-toggle { width: 30px; }
 }
