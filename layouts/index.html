@@ -1,55 +1,94 @@
 {{ define "main" }}
-<section class="hero shell">
-  <div class="hero-copy">
-    <p class="kicker">SEASEALJEL'S FIELD NOTES</p>
-    <h1>在代码、光影与<br><em>日常之间</em>。</h1>
-    <p class="hero-lead">{{ site.Params.subtitle }}</p>
-    <div class="hero-actions">
-      <a class="button primary" href="#recommended">开始阅读 <span>→</span></a>
-      <a class="button quiet" href="{{ "about/" | relURL }}">认识我</a>
+{{ $posts := (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+
+<section class="home-hero">
+  <div class="shell home-hero-inner">
+    <div class="home-hero-copy">
+      <p class="home-eyebrow">SEASEALJI'S FIELD NOTES</p>
+      <h1>在代码、光影与<br><em>日常之间。</em></h1>
+      <p class="home-hero-lead">{{ site.Params.subtitle }}</p>
+      <div class="home-hero-actions">
+        <a class="home-button home-button-primary" href="#recommended">浏览文章 <span aria-hidden="true">↗</span></a>
+        <a class="home-button home-button-secondary" href="{{ "about/" | relURL }}">认识我 <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="home-hero-footnote"><span aria-hidden="true"></span>技术实践 · 光影故事 · 生活片段</p>
     </div>
-  </div>
-  <div class="hero-art" aria-hidden="true">
-    <div class="orbit orbit-one"></div>
-    <div class="orbit orbit-two"></div>
-    <div class="art-card"><span>CODE</span><strong>{ }</strong></div>
-    <div class="art-card art-card-film"><span>FRAME</span><strong>24</strong></div>
-    <div class="art-note">灵感<br>正在发生</div>
+
+    {{ if $posts }}
+      {{ $featured := index $posts 0 }}
+      <a class="home-feature" href="{{ $featured.RelPermalink }}" aria-label="阅读最新文章《{{ $featured.Title }}》">
+        <span class="home-feature-top"><span class="home-feature-monogram" aria-hidden="true">S.</span><span>NEWEST STORY&nbsp; / &nbsp;01</span></span>
+        <div class="home-feature-content">
+          <span class="home-feature-meta">
+            {{ with $featured.Params.categories }}<span class="home-feature-category">{{ index . 0 }}</span>{{ end }}
+            <time datetime="{{ $featured.Date.Format "2006-01-02" }}">{{ $featured.Date.Format "2006.01.02" }}</time>
+          </span>
+          <h2 class="home-feature-title">{{ $featured.Title }}</h2>
+          <span class="home-feature-description">{{ with $featured.Description }}{{ . }}{{ else }}{{ $featured.Summary | plainify | truncate 100 }}{{ end }}</span>
+        </div>
+        <span class="home-feature-bottom"><span>读这篇文章</span><span class="home-feature-arrow" aria-hidden="true">↗</span></span>
+      </a>
+    {{ else }}
+      <div class="home-feature home-feature-empty">
+        <span class="home-feature-top"><span class="home-feature-monogram" aria-hidden="true">S.</span><span>FIELD NOTES&nbsp; / &nbsp;01</span></span>
+        <h2 class="home-feature-title">新的故事，正在路上。</h2>
+      </div>
+    {{ end }}
   </div>
 </section>
 
-<section class="category-section shell">
-  <div class="section-heading">
-    <div><p class="kicker">EXPLORE</p><h2>从兴趣出发</h2></div>
-    <p>五个入口，装下我的专业、爱好与生活。</p>
+<section class="home-topics shell" aria-labelledby="home-topics-title">
+  <div class="home-topics-intro">
+    <span class="home-eyebrow">EXPLORE</span>
+    <h2 id="home-topics-title">从兴趣出发</h2>
   </div>
-  <div class="category-grid">
+  <div class="home-topics-grid">
     {{ $items := slice
-      (dict "name" "技术" "num" "01" "desc" "代码、工具与工程实践" "class" "tech")
-      (dict "name" "美剧电影推荐" "num" "02" "desc" "银幕内外，值得回味的故事" "class" "film")
-      (dict "name" "生活" "num" "03" "desc" "日常、旅行和细小感受" "class" "life")
-      (dict "name" "项目" "num" "04" "desc" "创造过程与阶段复盘" "class" "project")
-      (dict "name" "随笔" "num" "05" "desc" "观察、思考和未完待续" "class" "essay")
+      (dict "name" "技术" "num" "01" "class" "tech")
+      (dict "name" "美剧电影推荐" "num" "02" "class" "film")
+      (dict "name" "生活" "num" "03" "class" "life")
+      (dict "name" "项目" "num" "04" "class" "project")
+      (dict "name" "随笔" "num" "05" "class" "essay")
     }}
     {{ range $items }}
-      <a class="category-card {{ .class }}" href="{{ (printf "/categories/%s/" .name) | relURL }}">
-        <span class="category-number">{{ .num }}</span>
-        <div><h3>{{ .name }}</h3><p>{{ .desc }}</p></div>
-        <span class="category-arrow" aria-hidden="true">↗</span>
+      <a class="home-topic home-topic-{{ .class }}" href="{{ (printf "/categories/%s/" .name) | relURL }}">
+        <span class="home-topic-num">{{ .num }}</span>
+        <span class="home-topic-name">{{ .name }}</span>
+        <span class="home-topic-arrow" aria-hidden="true">↗</span>
       </a>
     {{ end }}
   </div>
 </section>
 
-<section class="latest-section shell" id="recommended">
-  <div class="section-heading">
-    <div><p class="kicker">RECOMMENDED</p><h2>推荐阅读</h2></div>
+<section class="home-reading shell" id="recommended" aria-labelledby="home-reading-title">
+  <div class="home-reading-heading">
+    <div>
+      <p class="home-eyebrow">RECOMMENDED</p>
+      <h2 id="home-reading-title">推荐阅读<span class="home-reading-count">{{ printf "%02d" (len $posts) }}</span></h2>
+    </div>
     <p>这里收录已经写下的文章，从最近一次更新开始。</p>
   </div>
-  {{ $posts := where site.RegularPages "Section" "posts" }}
-  {{ if $posts }}
-    <div class="posts-grid">{{ range $posts.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}</div>
-  {{ else }}
+
+  {{ if gt (len $posts) 1 }}
+    <div class="home-stories">
+      {{ range $index, $post := after 1 $posts }}
+        <a class="home-story" href="{{ $post.RelPermalink }}" aria-label="阅读《{{ $post.Title }}》">
+          <span class="home-story-number">{{ printf "%02d" (add $index 2) }}</span>
+          <div class="home-story-body">
+            <span class="home-story-meta">
+              {{ with $post.Params.categories }}<span>{{ index . 0 }}</span>{{ end }}
+              <time datetime="{{ $post.Date.Format "2006-01-02" }}">{{ $post.Date.Format "2006.01.02" }}</time>
+            </span>
+            <h3 class="home-story-title">{{ $post.Title }}</h3>
+            <span class="home-story-description">{{ with $post.Description }}{{ . }}{{ else }}{{ $post.Summary | plainify | truncate 110 }}{{ end }}</span>
+          </div>
+          <span class="home-story-arrow" aria-hidden="true">↗</span>
+        </a>
+      {{ end }}
+    </div>
+  {{ else if eq (len $posts) 1 }}
+    <div class="empty-state"><span>✦</span><h3>更多故事正在酝酿</h3><p>最新一篇文章已经放在上方，后续记录会接着出现在这里。</p></div>
+  {{ else if not $posts }}
     <div class="empty-state"><span>✦</span><h3>故事正在酝酿</h3><p>第一篇文章发布后，它会出现在这里。</p></div>
   {{ end }}
 </section>
